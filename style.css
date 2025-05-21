@@ -1,12 +1,26 @@
+body,html{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+      overflow-x: hidden;
+
+}
+
 nav{
     background-color: black;
     padding: 15px 20px;
+      width: 100%;
+
 }
 
 nav > div{
     display: flex;
     justify-content: space-between;
     align-items: center;
+      max-width: 1200px;
+        margin: 0 auto;
+
+
 }
 
 nav h1{
@@ -123,7 +137,10 @@ nav ul li a:hover{
     position: relative;
     height: 100vh;
     overflow: hidden;
-    background-color: #007bff;
+    background-color: #f9e50efc;
+    display: flex;
+  align-items: center;
+
 }
 
 
@@ -131,4 +148,15 @@ nav ul li a:hover{
     position: relative;
     height: 100vh;
     overflow: hidden;
+}
+
+.about-img{
+    width: 40%;
+  height: 60%;
+  object-fit: cover;
+  position: absolute;
+  right: 10%;
+  z-index: 2;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
