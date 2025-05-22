@@ -2,6 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 const port = 3000;
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./data.db');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -45,10 +47,26 @@ app.get('/register', (req, res) => res.send('Register Page'));
 
 // Handle form submission
 app.post('/contact', (req, res) => {
-  console.log('Contact form data:', req.body);
-  req.session.success = 'Thank you for contacting us!';
-  res.redirect('/contact');
+  const { name, email, subject, message } = req.body;
+
+  const stmt = `
+    INSERT INTO contacts (name, email, subject, message)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  db.run(stmt, [name, email, subject, message], function (err) {
+    if (err) {
+      console.error('Error inserting into contacts:', err.message);
+      req.session.success = 'Something went wrong. Please try again.';
+    } else {
+      console.log('Contact saved with ID:', this.lastID);
+      req.session.success = 'Thank you for contacting us!';
+    }
+
+    res.redirect('/contact');
+  });
 });
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
