@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Algnite
-=======
 # Algnite - Building the Foundation
 
 Welcome to the Algnite repository! We're currently in the exciting phase of building the foundational structure for our company's online presence.
@@ -25,4 +22,3 @@ As we progress, we'll be focusing on:
 ## Stay Tuned!
 
 This repository will evolve as we build and refine our online presence. We're excited about this initial phase and look forward to sharing our progress.
->>>>>>> 700d4f13872b561a8eccf43958543f0caf98a493
