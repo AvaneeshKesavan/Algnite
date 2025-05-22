@@ -8,7 +8,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Welcome to the Algnite repository! We're currently in the exciting phase of building the foundational structure for our company's online presence.",
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^5.1.0",
