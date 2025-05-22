@@ -2,9 +2,12 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 const port = 3000;
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./data.db');
 
+// ✅ Import better-sqlite3 instead of sqlite3
+const Database = require('better-sqlite3');
+const db = new Database('./data.db');
+
+// Middleware setup
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
@@ -15,12 +18,23 @@ app.use(session({
   saveUninitialized: true
 }));
 
+// ✅ Ensure contacts table exists
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS contacts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    subject TEXT,
+    message TEXT NOT NULL
+  )
+`).run();
+
 // Home
 app.get('/', (req, res) => {
   res.render('index', { user: req.session.user });
 });
 
-// Login page
+// Login
 app.get('/login', (req, res) => {
   req.session.user = true;
   res.redirect('/');
@@ -32,10 +46,10 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-// Show contact form with success message if any
+// Contact page with message
 app.get('/contact', (req, res) => {
   const success = req.session.success;
-  delete req.session.success; // clear success message after reading
+  delete req.session.success;
   res.render('contact', { user: req.session.user, success });
 });
 
@@ -45,28 +59,26 @@ app.get('/dashboard', (req, res) => res.send('Dashboard Page'));
 app.get('/profile', (req, res) => res.send('Profile Page'));
 app.get('/register', (req, res) => res.send('Register Page'));
 
-// Handle form submission
+// ✅ Handle contact form submission using better-sqlite3
 app.post('/contact', (req, res) => {
   const { name, email, subject, message } = req.body;
 
-  const stmt = `
-    INSERT INTO contacts (name, email, subject, message)
-    VALUES (?, ?, ?, ?)
-  `;
+  try {
+    const stmt = db.prepare(`
+      INSERT INTO contacts (name, email, subject, message)
+      VALUES (?, ?, ?, ?)
+    `);
+    stmt.run(name, email, subject, message);
 
-  db.run(stmt, [name, email, subject, message], function (err) {
-    if (err) {
-      console.error('Error inserting into contacts:', err.message);
-      req.session.success = 'Something went wrong. Please try again.';
-    } else {
-      console.log('Contact saved with ID:', this.lastID);
-      req.session.success = 'Thank you for contacting us!';
-    }
+    console.log('Contact saved successfully');
+    req.session.success = 'Thank you for contacting us!';
+  } catch (err) {
+    console.error('Error inserting into contacts:', err.message);
+    req.session.success = 'Something went wrong. Please try again.';
+  }
 
-    res.redirect('/contact');
-  });
+  res.redirect('/contact');
 });
-
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
