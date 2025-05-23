@@ -53,6 +53,21 @@ app.get('/contact', (req, res) => {
   res.render('contact', { user: req.session.user, success });
 });
 
+// About Us
+app.get('/about', (req,res) => {
+  res.render('about',{ user: req.session.user});
+});
+
+// Services Page
+app.get('/services', (req,res) => {
+  res.render('services',{ user: req.session.user});
+});
+
+// Booking Page
+app.get('/book', (req,res) => {
+  res.render('book',{ user: req.session.user});
+});
+
 // Other pages
 app.get('/about', (req, res) => res.send('About Page'));
 app.get('/dashboard', (req, res) => res.send('Dashboard Page'));
