@@ -1,68 +1,12 @@
-/* Modern CSS Reset and Base Styles */
-body,
-html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    scroll-behavior: smooth;
-}
-
-/* Navigation - More Elegant */
-.main-nav nav {
-    display: flex;
-    flex-direction: row;  
-    justify-content: space-between; 
-    align-items: center;         
-    position: fixed;
-    z-index: 4;
-    left: 10px;
-    right: 20px;
-    top: 30px;
-    padding: 10px;
-}
-
-.main-nav h1 {
-    margin: 0;
-    font-size: 33px;
-    font-weight: 700;
-    color: white;
-    margin-left: 8%;
-}
-
-.main-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 30px;
-    margin-right: 2%;
-}
-
-.main-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-    padding: 5px 0;
-}
-
-.main-nav ul li a:hover {
-    color: #f9e50e;
-}
-
-
 /* Hero Section - More Impactful */
 .hero {
+    margin-top: 0;
+    padding-top: 40px;
     position: relative;
     height: 100vh;
     overflow: hidden;
 }
+
 
 .hero-image {
     width: 100%;

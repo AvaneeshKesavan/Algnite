@@ -1,0 +1,105 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    scroll-behavior: smooth;
+}
+
+/* Navigation - More Elegant */
+.main-nav nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    /* ✅ Changed from fixed to absolute */
+    top: 30px;
+    left: 10px;
+    right: 20px;
+    padding: 10px;
+    z-index: 4;
+}
+
+
+
+.main-nav h1 {
+    margin: 0;
+    font-size: 33px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    margin-left: 8%;
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+    margin-right: 2%;
+}
+
+.main-nav ul li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+.main-nav ul li a:hover {
+    color: #f9e50e;
+}
+
+.footer {
+    background-color: #000;
+    color: white;
+    padding: 40px 20px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+}
+
+.footer-logo h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 120px;
+}
+
+.footer-links a {
+    color: yellow;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: rgb(255, 255, 255);
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #ccc;
+}

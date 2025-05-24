@@ -1,14 +1,14 @@
 body {
-    padding-top: 120px;
-    background-color: #ffffff;
+  padding-top: 120px;
+  background-color: #ffffff;
 }
 
 .main-nav h1 {
-    color: #000;
+  color: #000;
 }
 
 .main-nav ul li a {
-    color: #000;
+  color: #000;
 }
 
 .contact-container {
@@ -17,7 +17,7 @@ body {
   padding: 40px;
   background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .contact-container h2 {

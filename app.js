@@ -3,7 +3,7 @@ const session = require('express-session');
 const app = express();
 const port = 3000;
 
-// ✅ Import better-sqlite3 instead of sqlite3
+// Import better-sqlite3 instead of sqlite3
 const Database = require('better-sqlite3');
 const db = new Database('./data.db');
 
@@ -18,7 +18,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
-// ✅ Ensure contacts table exists
+// Ensure contacts table exists
 db.prepare(`
   CREATE TABLE IF NOT EXISTS contacts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -74,7 +74,7 @@ app.get('/dashboard', (req, res) => res.send('Dashboard Page'));
 app.get('/profile', (req, res) => res.send('Profile Page'));
 app.get('/register', (req, res) => res.send('Register Page'));
 
-// ✅ Handle contact form submission using better-sqlite3
+// Handle contact form submission using better-sqlite3
 app.post('/contact', (req, res) => {
   const { name, email, subject, message } = req.body;
 
