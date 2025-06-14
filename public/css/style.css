@@ -1,4 +1,4 @@
-/* Hero Section - More Impactful */
+/* HERO SECTION */
 .hero {
     margin-top: 0;
     padding-top: 40px;
@@ -6,7 +6,6 @@
     height: 100vh;
     overflow: hidden;
 }
-
 
 .hero-image {
     width: 100%;
@@ -23,7 +22,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
 }
 
 .hero-content {
@@ -97,56 +96,37 @@
     transform: translateY(-3px);
 }
 
-/* About Section - More Sophisticated */
+/* ABOUT SECTION */
 .about {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #f9f9f9;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 5%;
-}
-
-.about::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 85%;
-    height: 70%;
-    background-color: white;
-    z-index: 1;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 80px 5%;
+    background-color: #f9f9f9;
+    flex-wrap: wrap;
+    gap: 40px;
 }
 
 .about-img {
-    width: 45%;
-    height: 70%;
-    object-fit: cover;
-    position: absolute;
-    right: 7%;
-    z-index: 2;
+    flex: 1 1 45%;
+    max-width: 45%;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    transition: transform 0.5s ease;
-}
-
-.about-img:hover {
-    transform: scale(1.02);
+    object-fit: cover;
 }
 
 .mission {
-    position: absolute;
-    left: 7%;
-    width: 45%;
-    z-index: 2;
+    flex: 1 1 45%;
     background-color: white;
     padding: 50px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mission:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
 .mission h2 {
@@ -172,10 +152,8 @@
     color: #555;
 }
 
-/* Services Section - More Professional */
+/* SERVICES SECTION */
 .services {
-    position: relative;
-    min-height: 100vh;
     padding: 100px 5%;
     background-color: #f9f9f9;
     text-align: center;
@@ -191,7 +169,6 @@
     margin-bottom: 80px;
     color: #1a1a1a;
     position: relative;
-    display: inline-block;
 }
 
 .services h2::after {
@@ -205,16 +182,23 @@
     background-color: #f9e50e;
 }
 
+.service-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
 .service-card {
-    display: inline-block;
-    width: 30%;
-    margin: 1%;
+    flex: 1 1 30%;
     background-color: white;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    vertical-align: top;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }
 
 .service-card:hover {
@@ -234,56 +218,37 @@
 }
 
 .service-card h3 {
-    margin: 25px 0 15px;
+    margin: 20px;
     font-size: 1.6rem;
     color: #1a1a1a;
 }
 
 .service-card p {
-    padding: 0 25px 30px;
+    margin: 0 20px 20px;
     color: #666;
     font-size: 1.1rem;
     line-height: 1.7;
 }
 
-/* Responsive Design */
+/* RESPONSIVE DESIGN */
 @media (max-width: 992px) {
-    .hero h1 {
-        font-size: 2.8rem;
+    .about {
+        flex-direction: column;
+        text-align: center;
     }
 
     .about-img,
     .mission {
-        width: 90%;
-        position: relative;
-        left: auto;
-        right: auto;
-        margin: 30px auto;
-    }
-
-    .about {
-        height: auto;
-        padding: 100px 5%;
-        flex-direction: column;
+        max-width: 100%;
+        flex: 1 1 100%;
     }
 
     .service-card {
-        width: 45%;
-        margin-bottom: 30px;
+        flex: 1 1 45%;
     }
 }
 
 @media (max-width: 768px) {
-    nav>div {
-        flex-direction: column;
-    }
-
-    nav ul {
-        margin-top: 20px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
     .hero h1 {
         font-size: 2.2rem;
     }
@@ -298,6 +263,16 @@
     }
 
     .service-card {
-        width: 90%;
+        flex: 1 1 100%;
+    }
+
+    nav>div {
+        flex-direction: column;
+    }
+
+    nav ul {
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
