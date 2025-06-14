@@ -61,7 +61,7 @@ html {
 .footer {
     background-color: #000;
     color: white;
-    padding: 40px 20px 20px;
+    padding: 50px 20px 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -71,7 +71,7 @@ html {
     align-items: center;
     flex-wrap: wrap;
     max-width: 1200px;
-    margin: 0 auto 20px;
+    margin: 0 auto 50px;
 }
 
 .footer-logo h2 {
