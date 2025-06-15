@@ -1,4 +1,7 @@
-/* About Page Styles */
+body {
+  padding-top: 100px;
+}
+
 .about-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -68,6 +71,12 @@
 }
 
 .image-content img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.founder-section image-content img {
     width: 100%;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
