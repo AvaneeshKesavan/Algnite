@@ -2,33 +2,79 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book a Trial - Elder</title>
-    <link rel="icon" type="image/x-icon" href="img/elder.ico">
-    <link rel="stylesheet" href="/css/global.css">
-    <link rel="stylesheet" href="/css/book.css">
+    <link rel="icon" type="image/x-icon" href="/img/elder.ico" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/book.css" />
 </head>
 
 <body>
     <%- include('partials/header') %>
+
         <section class="book-section">
             <div class="book-container">
                 <h2>Book Now</h2>
                 <form action="/book" method="POST">
-                    <input type="text" name="service" placeholder="Select Service (e.g. Companionship)" required>
-                    <input type="date" name="date" required>
-                    <input type="time" name="time" required>
-                    <textarea name="notes" placeholder="Any special requests or health concerns"></textarea>
+                    <!-- User Name and Email from session -->
+                    <input type="text" name="name" value="<%= user?.fullname %>" readonly />
+                    <input type="email" name="email" value="<%= user?.email %>" readonly />
+
+                    <!-- Service Dropdown -->
+                    <select name="service" required>
+                        <option value="">-- Select Service --</option>
+                        <option value="Companionship">Companionship</option>
+                        <option value="Home Nursing">Home Nursing</option>
+                        <option value="Grocery Support">Grocery Support</option>
+                        <option value="Mobility Assistance">Mobility Assistance</option>
+                        <option value="Health Monitoring">Health Monitoring</option>
+                        <option value="Medical Reminders">Medical Reminders</option>
+                    </select>
+
+                    <!-- Date and Time -->
+                    <input type="date" name="date" id="dateInput" required />
+                    <input type="time" name="time" id="timeInput" required />
+
+                    <textarea name="note" placeholder="Any special requests or health concerns"></textarea>
                     <button type="submit">Confirm Booking</button>
                 </form>
             </div>
         </section>
+
         <%- include('partials/footer') %>
+
+            <div id="successMessage" data-msg="<%= success ? success : '' %>"></div>
+
             <script>
+                // Toggle mobile menu
                 function toggleMenu() {
                     const nav = document.getElementById("nav-links");
                     nav.classList.toggle("show");
+                }
+
+                // Prevent past dates and times
+                const dateInput = document.getElementById('dateInput');
+                const timeInput = document.getElementById('timeInput');
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.min = today;
+
+                dateInput.addEventListener('change', () => {
+                    const selectedDate = dateInput.value;
+                    const now = new Date();
+                    const selected = new Date(selectedDate);
+
+                    if (selected.toDateString() === now.toDateString()) {
+                        const currentTime = now.toTimeString().slice(0, 5);
+                        timeInput.min = currentTime;
+                    } else {
+                        timeInput.min = "00:00";
+                    }
+                });
+
+                const successMsg = document.getElementById('successMessage').dataset.msg;
+                if (successMsg) {
+                    alert(successMsg);
                 }
             </script>
 </body>
