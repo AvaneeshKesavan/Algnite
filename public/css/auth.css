@@ -1,0 +1,163 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.auth-container {
+  background-color: #fff;
+  padding: 40px 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.auth-container h1 {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form h2 {
+  margin-bottom: 20px;
+}
+
+.auth-form input {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.auth-form button,
+#choice-box button {
+  padding: 12px;
+  background-color: #f9e50e;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.auth-form button:hover,
+#choice-box button:hover {
+  background-color: #e2cd00;
+}
+
+.hidden {
+  display: none;
+}
+
+.toggle-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.toggle-link a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.auth-container,
+.profile-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 30px;
+  background: #f2f2f2;
+  border-radius: 10px;
+  margin-top: 50px;
+}
+
+.auth-container h3,
+.profile-container h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.auth-container form,
+.profile-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-container input,
+.profile-container input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.auth-container button,
+.profile-container button {
+  padding: 10px;
+  background: #f9e50e;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #0003;
+}
+
+.auth-container h1 {
+  text-align: center;
+  margin-bottom: 20px
+}
+
+.auth-form {
+  margin-bottom: 20px
+}
+
+.auth-form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px
+}
+
+.toggle-link {
+  text-align: center
+}
