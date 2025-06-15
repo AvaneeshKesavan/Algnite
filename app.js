@@ -77,6 +77,8 @@ app.get("/contact", (req, res) => {
   res.render("contact", { user: req.session?.user, success });
 });
 
+
+
 // Handle contact form submission
 app.post("/contact", (req, res) => {
   const { name, email, subject, message } = req.body;
@@ -105,7 +107,7 @@ app.post("/login", (req, res) => {
   if (!user) {
     return res.render('auth', { isLogin: true, error: 'Email not registered!', user: null, next });
   }
-  if (user.password !== password) { 
+  if (user.password !== password) {
     return res.render('auth', { isLogin: true, error: 'Invalid password!', user: null, next });
   }
   req.session.user = user;
@@ -136,7 +138,7 @@ app.post("/register", (req, res) => {
 
     const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
     req.session.user = user;
-    res.redirect('/profile'); 
+    res.redirect('/profile');
   } catch (err) {
     res.render('auth', { isLogin: false, error: 'Email already in use or something went wrong!', user: null, next: '' });
   }
@@ -166,7 +168,7 @@ app.post("/profile/update", upload.single('profilePicture'), (req, res) => {
 
   req.session.user = usersDb.prepare('SELECT * FROM users WHERE id = ?').get(req.session?.user?.id);
 
-  res.redirect('/profile'); 
+  res.redirect('/profile');
 });
 
 // Book

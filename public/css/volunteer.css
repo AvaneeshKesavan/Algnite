@@ -1,0 +1,233 @@
+/* Simplified Volunteer Page Styles */
+.volunteer-simple-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.volunteer-hero {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    background: url('../img/volunteer-hero.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #f9e50e;
+    color: #000;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #e0d000;
+    transform: translateY(-3px);
+}
+
+.why-volunteer {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.why-volunteer h2 {
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    color: #333;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.benefit-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.benefit-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.benefit-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.transform-section {
+    background-color: #f9f9f9;
+    padding: 80px 0;
+}
+
+.transform-content {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 50px;
+}
+
+.transform-text {
+    flex: 1;
+}
+
+.transform-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.transform-text p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.transform-text ul {
+    margin: 30px 0;
+    padding-left: 20px;
+}
+
+.transform-text li {
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.cta-wrapper {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.transform-image {
+    flex: 1;
+}
+
+.transform-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.impact-section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.impact-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.impact-stats {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 50px auto;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    min-width: 150px;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #f9e50e;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.impact-text {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .volunteer-hero {
+        height: 60vh;
+        min-height: 400px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+    
+    .transform-content {
+        flex-direction: column;
+    }
+}
