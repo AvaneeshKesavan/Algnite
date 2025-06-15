@@ -1,163 +1,138 @@
-body,
-html {
+/* Reset */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f4f4f4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
 }
 
+html, body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container */
 .auth-container {
-  background-color: #fff;
-  padding: 40px 30px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  padding: 90px 50px;
   border-radius: 12px;
-  max-width: 400px;
-  width: 90%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 460px;
   text-align: center;
 }
 
+/* Heading */
 .auth-container h1 {
-  font-size: 26px;
-  margin-bottom: 20px;
+  font-size: 28px;
+  color: #000;
+  margin-bottom: 25px;
 }
 
-.auth-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.auth-form h2 {
-  margin-bottom: 20px;
-}
-
-.auth-form input {
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-.auth-form button,
+/* Choice buttons */
 #choice-box button {
-  padding: 12px;
-  background-color: #f9e50e;
-  border: none;
+  margin: 10px;
+  padding: 12px 20px;
+  width: 45%;
+  font-size: 16px;
+  font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 16px;
-  margin-top: 10px;
+  background-color: #f9e50e;
+  color: #000;
   transition: background-color 0.3s;
 }
 
-.auth-form button:hover,
 #choice-box button:hover {
   background-color: #e2cd00;
 }
 
+/* Forms */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form input,
+.auth-form select {
+  margin-bottom: 25px; /* Increase from 15px or 20px */
+}
+
+.auth-form h2 {
+  margin-bottom: 10px;
+  font-size: 22px;
+  color: #000;
+}
+
+.auth-form input,
+.auth-form select {
+  padding: 14px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  font-size: 15px;
+  width: 100%;
+  background-color: #fff;
+  color: #000;
+}
+
+.auth-form button {
+  padding: 14px;
+  background-color: #f9e50e;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-form button:hover {
+  background-color: #e2cd00;
+}
+
+/* Toggle link */
+.toggle-link {
+  font-size: 14px;
+  color: #000;
+}
+
+.toggle-link a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.toggle-link a:hover {
+  color: #444;
+}
+
+/* Error */
+.error {
+  color: red;
+  background: #ffe0e0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Hidden class */
 .hidden {
   display: none;
 }
 
-.toggle-link {
-  margin-top: 10px;
-  font-size: 14px;
-}
+/* Responsive */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 30px 20px;
+  }
 
-.toggle-link a {
-  color: #0077cc;
-  text-decoration: none;
-}
-
-.auth-container,
-.profile-container {
-  max-width: 500px;
-  margin: auto;
-  padding: 30px;
-  background: #f2f2f2;
-  border-radius: 10px;
-  margin-top: 50px;
-}
-
-.auth-container h3,
-.profile-container h2 {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.auth-container form,
-.profile-container form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.auth-container input,
-.profile-container input {
-  padding: 10px;
-  font-size: 16px;
-}
-
-.auth-container button,
-.profile-container button {
-  padding: 10px;
-  background: #f9e50e;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.profile-pic {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-.auth-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #0003;
-}
-
-.auth-container h1 {
-  text-align: center;
-  margin-bottom: 20px
-}
-
-.auth-form {
-  margin-bottom: 20px
-}
-
-.auth-form input {
-  display: block;
-  width: 100%;
-  margin-bottom: 15px;
-  padding: 10px;
-}
-
-.auth-form button {
-  width: 100%;
-  padding: 10px;
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px
-}
-
-.error {
-  color: red;
-  margin-bottom: 15px
-}
-
-.toggle-link {
-  text-align: center
+  #choice-box button {
+    width: 100%;
+    margin: 10px 0;
+  }
 }

@@ -46,7 +46,6 @@ db.prepare(`
   )
 `).run();
 
-
 // Ensure users table with profilePicture
 usersDb.prepare(`
   CREATE TABLE IF NOT EXISTS users (
@@ -61,7 +60,6 @@ usersDb.prepare(`
     profilePicture TEXT
   )
 `).run();
-
 
 // Home
 app.get("/", (req, res) => {
@@ -94,26 +92,29 @@ app.post("/contact", (req, res) => {
 
 // Authentication
 app.get("/login", (req, res) => {
-  res.render("auth", { isLogin: true, error: null, user: null });
+  const next = req.query.next || '';
+  res.render("auth", { isLogin: true, error: null, user: null, next });
 });
 
 // Handle login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
+  const next = req.query.next || '/profile';
+
   const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
   if (!user) {
-    return res.render('auth', { isLogin: true, error: 'Email not registered!', user: null });
+    return res.render('auth', { isLogin: true, error: 'Email not registered!', user: null, next });
   }
   if (user.password !== password) { 
-    return res.render('auth', { isLogin: true, error: 'Invalid password!', user: null });
+    return res.render('auth', { isLogin: true, error: 'Invalid password!', user: null, next });
   }
   req.session.user = user;
-  res.redirect('/profile'); 
+  res.redirect(next);
 });
 
 // Register
 app.get("/register", (req, res) => {
-  res.render("auth", { isLogin: false, error: null, user: null });
+  res.render("auth", { isLogin: false, error: null, user: null, next: '' });
 });
 
 // Handle registration
@@ -121,31 +122,29 @@ app.post("/register", (req, res) => {
   const { fullname, email, password, age, gender, address, phone } = req.body;
 
   if (!fullname || !email || !password || !phone) {
-    return res.render('auth', { isLogin: false, error: 'Please fill in all required fields', user: null });
+    return res.render('auth', { isLogin: false, error: 'Please fill in all required fields', user: null, next: '' });
   }
   if (password.length < 6) {
-    return res.render('auth', { isLogin: false, error: 'Password must be at least 6 characters', user: null });
+    return res.render('auth', { isLogin: false, error: 'Password must be at least 6 characters', user: null, next: '' });
   }
-  
+
   try {
     usersDb.prepare(`
       INSERT INTO users (fullname, email, password, age, gender, address, phone)
       VALUES (?, ?, ?, ?, ?, ?, ?)`
     ).run(fullname, email, password, age, gender, address, phone);
 
-    // Retrieve and set the newly registered user
     const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
     req.session.user = user;
     res.redirect('/profile'); 
   } catch (err) {
-    res.render('auth', { isLogin: false, error: 'Email already in use or something went wrong!', user: null });
+    res.render('auth', { isLogin: false, error: 'Email already in use or something went wrong!', user: null, next: '' });
   }
 });
 
 // Profile view
 app.get("/profile", (req, res) => {
   if (!req.session?.user) return res.redirect("/login");
-
   res.render("profile", { user: req.session?.user });
 });
 
@@ -159,21 +158,25 @@ app.post("/profile/update", upload.single('profilePicture'), (req, res) => {
   if (req.file) {
     profilePicture = req.file.filename;
   }
-  
+
   usersDb.prepare(`
     UPDATE users SET fullname = ?, age = ?, gender = ?, address = ?, phone = ?, profilePicture = ?
     WHERE id = ?
   `).run(fullname, age, gender, address, phone, profilePicture, req.session?.user?.id);
-  
-  // Update session
+
   req.session.user = usersDb.prepare('SELECT * FROM users WHERE id = ?').get(req.session?.user?.id);
-  
+
   res.redirect('/profile'); 
 });
 
 // Book
 app.get("/book", (req, res) => {
-  res.render("book", { user: req.session?.user, success: req.session?.success });
+  if (!req.session.user) {
+    return res.redirect("/login?next=/book");
+  }
+  const success = req.session.success;
+  delete req.session.success;
+  res.render("book", { user: req.session.user, success });
 });
 
 // Handle booking
