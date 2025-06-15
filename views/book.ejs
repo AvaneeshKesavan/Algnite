@@ -12,7 +12,14 @@
 
 <body>
     <%- include('partials/header') %>
-    <%- include('partials/footer') %>
+        <%- include('partials/footer') %>
+
+            <script>
+                function toggleMenu() {
+                    const nav = document.getElementById("nav-links");
+                    nav.classList.toggle("show");
+                }
+            </script>
 </body>
 
 </html>
