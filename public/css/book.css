@@ -1,4 +1,7 @@
-/* Book Page CSS */
+body {
+  padding-top: 120px;
+}
+
 .book-container {
   max-width: 600px;
   margin: 60px auto;
