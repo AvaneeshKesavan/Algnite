@@ -1,0 +1,69 @@
+/* Book Page CSS */
+.book-container {
+  max-width: 600px;
+  margin: 60px auto;
+  background: #f7f7f7;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.book-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #222;
+}
+
+.book-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.book-container input,
+.book-container select,
+.book-container textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.book-container button {
+  padding: 12px;
+  background-color: #f9e50e;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.book-container button:hover {
+  background-color: #e0cf00;
+}
+
+@media (max-width: 600px) {
+  .book-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .book-container h2 {
+    font-size: 22px;
+  }
+
+  .book-container input,
+  .book-container select,
+  .book-container textarea {
+    font-size: 14px;
+  }
+
+  .book-container button {
+    font-size: 14px;
+  }
+}
