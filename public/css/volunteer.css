@@ -1,4 +1,7 @@
-/* Simplified Volunteer Page Styles */
+body {
+  padding-top: 100px;
+}
+
 .volunteer-simple-container {
     max-width: 1400px;
     margin: 0 auto;

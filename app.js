@@ -67,8 +67,9 @@ app.get("/", (req, res) => {
 });
 
 // About / Services
-app.get("/about", (req, res) => res.render("about", { user: req.session?.user }))
+app.get("/about", (req, res) => res.render("about", { user: req.session?.user }));
 app.get("/services", (req, res) => res.render("services", { user: req.session?.user }));
+app.get("/volunteer", (req, res) => res.render("volunteer", { user: req.session?.user }))
 
 // Contact
 app.get("/contact", (req, res) => {
