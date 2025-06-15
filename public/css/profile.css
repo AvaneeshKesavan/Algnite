@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 200px;
+    background: #fffde6;
+    color: #000;
+}
+
+.profile-container {
+    max-width: 500px;
+    margin: 160px auto 80px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.profile-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 24px -6px #0005;
+}
+
+.profile-container h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #ffcc00;
+    text-shadow: 1px 1px 3px black;
+    background: black;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px -2px black;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #ffcc00;
+    margin-bottom: 20px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px -2px black;
+}
+
+.profile-container label {
+    display: block;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 5px;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.profile-container span {
+    display: block;
+    margin-bottom: 20px;
+    color: #000;
+    background: #ffcc0044;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ffcc00;
+    box-shadow: 0 2px 4px -1px black;
+    transition: background 0.3s ease;
+    text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.profile-container span:hover {
+    background: #ffcc0077;
+    box-shadow: 0 4px 6px -1px black;
+}
+
+.profile-container button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: black;
+    color: #ffcc00;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+}
+
+.profile-container button:hover {
+    background: #ffcc00;
+    color: black;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px -2px black;
+}
+
+input {
+    display: block;
+    width: 90%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 1em;
+    color: black;
+    border: 1px solid #ffcc00;
+    border-radius: 8px;
+    background: #ffcc0044;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+input:focus {
+    outline: none;
+    background: #ffcc0077;
+    box-shadow: 0 4px 6px -1px black;
+}
