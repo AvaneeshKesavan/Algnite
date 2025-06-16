@@ -11,84 +11,87 @@
 </head>
 
 <body>
-    <%- include('partials/header', { user: user }) %>
+    <%- include('partials/loader') %>
+        <div class="main">
+            <%- include('partials/header', { user: user }) %>
 
-        <div class="profile-container">
-            <h2>Your Profile</h2>
+                <div class="profile-container">
+                    <h2>Your Profile</h2>
 
-            <% if (user.profilePicture) { %>
-                <img src="/uploads/<%= user.profilePicture %>" alt="Profile Picture" class="profile-pic">
-                <% } else { %>
-                    <img src="/images/default-avatar.png" alt="Default Picture" class="profile-pic">
-                    <% } %>
+                    <% if (user.profilePicture) { %>
+                        <img src="/uploads/<%= user.profilePicture %>" alt="Profile Picture" class="profile-pic">
+                        <% } else { %>
+                            <img src="/images/default-avatar.png" alt="Default Picture" class="profile-pic">
+                            <% } %>
 
-                        <div id="profile-info">
-                            <label>Full Name:</label> <span>
-                                <%= user.fullname %>
-                            </span>
+                                <div id="profile-info">
+                                    <label>Full Name:</label> <span>
+                                        <%= user.fullname %>
+                                    </span>
 
-                            <label>Email:</label> <span>
-                                <%= user.email %>
-                            </span>
+                                    <label>Email:</label> <span>
+                                        <%= user.email %>
+                                    </span>
 
-                            <label>Age:</label> <span>
-                                <%= user.age %>
-                            </span>
+                                    <label>Age:</label> <span>
+                                        <%= user.age %>
+                                    </span>
 
-                            <label>Gender:</label> <span>
-                                <%= user.gender %>
-                            </span>
+                                    <label>Gender:</label> <span>
+                                        <%= user.gender %>
+                                    </span>
 
-                            <label>Address:</label> <span>
-                                <%= user.address %>
-                            </span>
+                                    <label>Address:</label> <span>
+                                        <%= user.address %>
+                                    </span>
 
-                            <label>Contact Number:</label> <span>
-                                <%= user.phone %>
-                            </span>
+                                    <label>Contact Number:</label> <span>
+                                        <%= user.phone %>
+                                    </span>
 
-                            <br>
-                            <button id="editBtn" onclick="showEdit()">Edit Profile</button>
-                        </div>
+                                    <br>
+                                    <button id="editBtn" onclick="showEdit()">Edit Profile</button>
+                                </div>
 
-                        <form id="edit-form" action="/profile/update" method="POST" enctype="multipart/form-data"
-                            style="display: none">
-                            <label>Full Name:</label>
-                            <input name="fullname" value="<%= user.fullname %>" required>
+                                <form id="edit-form" action="/profile/update" method="POST"
+                                    enctype="multipart/form-data" style="display: none">
+                                    <label>Full Name:</label>
+                                    <input name="fullname" value="<%= user.fullname %>" required>
 
-                            <label>Age:</label>
-                            <input name="age" type="number" value="<%= user.age %>" required>
+                                    <label>Age:</label>
+                                    <input name="age" type="number" value="<%= user.age %>" required>
 
-                            <label>Gender:</label>
-                            <input name="gender" value="<%= user.gender %>" required>
+                                    <label>Gender:</label>
+                                    <input name="gender" value="<%= user.gender %>" required>
 
-                            <label>Address:</label>
-                            <input name="address" value="<%= user.address %>" required>
+                                    <label>Address:</label>
+                                    <input name="address" value="<%= user.address %>" required>
 
-                            <label>Contact Number:</label>
-                            <input name="phone" value="<%= user.phone %>" required>
+                                    <label>Contact Number:</label>
+                                    <input name="phone" value="<%= user.phone %>" required>
 
-                            <label>Profile Picture (optional):</label>
-                            <input name="profilePicture" type="file" accept="image/*">
-                            <br><br>
+                                    <label>Profile Picture (optional):</label>
+                                    <input name="profilePicture" type="file" accept="image/*">
+                                    <br><br>
 
-                            <button type="submit">Save</button>
-                            <button type="button" onclick="cancelEdit()">Cancel</button>
-                        </form>
+                                    <button type="submit">Save</button>
+                                    <button type="button" onclick="cancelEdit()">Cancel</button>
+                                </form>
+                </div>
+
+                <%- include('partials/footer') %>
         </div>
 
-        <%- include('partials/footer') %>
-
-            <script>
-                function showEdit() {
-                    document.getElementById('edit-form').style.display = 'block';
-                    document.getElementById('profile-info').style.display = 'none';
-                }
-                function cancelEdit() {
-                    document.getElementById('edit-form').style.display = 'none';
-                    document.getElementById('profile-info').style.display = 'block';
-                }
-            </script>
+        <script>
+            function showEdit() {
+                document.getElementById('edit-form').style.display = 'block';
+                document.getElementById('profile-info').style.display = 'none';
+            }
+            function cancelEdit() {
+                document.getElementById('edit-form').style.display = 'none';
+                document.getElementById('profile-info').style.display = 'block';
+            }
+        </script>
 </body>
 
 </html>

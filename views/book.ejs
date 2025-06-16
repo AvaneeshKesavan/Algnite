@@ -11,102 +11,105 @@
 </head>
 
 <body>
-    <%- include('partials/header') %>
+    <%- include('partials/loader') %>
+        <div class="main">
+            <%- include('partials/header') %>
 
-        <section class="book-section">
-            <div class="book-container">
-                <h2>Book Now</h2>
-                <form action="/book" method="POST">
-                    <input type="text" name="name" value="<%= user?.fullname %>" readonly />
-                    <input type="email" name="email" value="<%= user?.email %>" readonly />
+                <section class="book-section">
+                    <div class="book-container">
+                        <h2>Book Now</h2>
+                        <form action="/book" method="POST">
+                            <input type="text" name="name" value="<%= user?.fullname %>" readonly />
+                            <input type="email" name="email" value="<%= user?.email %>" readonly />
 
-                    <select name="service" required>
-                        <option value="">-- Select Service --</option>
-                        <option value="Companionship">Companionship</option>
-                        <option value="Home Nursing">Home Nursing</option>
-                        <option value="Grocery Support">Grocery Support</option>
-                        <option value="Mobility Assistance">Mobility Assistance</option>
-                        <option value="Health Monitoring">Health Monitoring</option>
-                        <option value="Medical Reminders">Medical Reminders</option>
-                    </select>
+                            <select name="service" required>
+                                <option value="">-- Select Service --</option>
+                                <option value="Companionship">Companionship</option>
+                                <option value="Home Nursing">Home Nursing</option>
+                                <option value="Grocery Support">Grocery Support</option>
+                                <option value="Mobility Assistance">Mobility Assistance</option>
+                                <option value="Health Monitoring">Health Monitoring</option>
+                                <option value="Medical Reminders">Medical Reminders</option>
+                            </select>
 
-                    <input type="date" name="date" id="dateInput" required />
-                    <input type="time" name="time" id="timeInput" required />
+                            <input type="date" name="date" id="dateInput" required />
+                            <input type="time" name="time" id="timeInput" required />
 
-                    <textarea name="note" placeholder="Any special requests or health concerns"></textarea>
-                    <button type="submit">Confirm Booking</button>
-                </form>
+                            <textarea name="note" placeholder="Any special requests or health concerns"></textarea>
+                            <button type="submit">Confirm Booking</button>
+                        </form>
 
-                <br>
-                <h3>Your Bookings</h3>
-                <table class="booking-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Service</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% if (bookingList && bookingList.length> 0) { %>
-                            <% bookingList.forEach(function(booking){ %>
+                        <br>
+                        <h3>Your Bookings</h3>
+                        <table class="booking-table">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <%= booking.date %>
-                                    </td>
-                                    <td>
-                                        <%= booking.time %>
-                                    </td>
-                                    <td>
-                                        <%= booking.service %>
-                                    </td>
-                                    <td><span class="status <%= booking.status %>">
-                                            <%= booking.status %>
-                                        </span></td>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Service</th>
+                                    <th>Status</th>
                                 </tr>
-                                <% }); %>
-                                    <% } else { %>
+                            </thead>
+                            <tbody>
+                                <% if (bookingList && bookingList.length> 0) { %>
+                                    <% bookingList.forEach(function(booking){ %>
                                         <tr>
-                                            <td colspan="4" style="text-align:center;padding:15px;color:#666">
-                                                You have no booking yet.
+                                            <td>
+                                                <%= booking.date %>
                                             </td>
+                                            <td>
+                                                <%= booking.time %>
+                                            </td>
+                                            <td>
+                                                <%= booking.service %>
+                                            </td>
+                                            <td><span class="status <%= booking.status %>">
+                                                    <%= booking.status %>
+                                                </span></td>
                                         </tr>
-                                        <% } %>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="4" style="text-align:center;padding:15px;color:#666">
+                                                        You have no booking yet.
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
 
-        <%- include('partials/footer') %>
+                <%- include('partials/footer') %>
+        </div>
 
-            <div id="successMessage" data-msg="<%= success ? success : '' %>"></div>
+        <div id="successMessage" data-msg="<%= success ? success : '' %>"></div>
 
-            <script>
-                // Prevent past dates and times
-                const dateInput = document.getElementById('dateInput');
-                const timeInput = document.getElementById('timeInput');
-                const today = new Date().toISOString().split('T')[0];
-                dateInput.min = today;
+        <script>
+            // Prevent past dates and times
+            const dateInput = document.getElementById('dateInput');
+            const timeInput = document.getElementById('timeInput');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
 
-                dateInput.addEventListener('change', () => {
-                    const selectedDate = dateInput.value;
-                    const now = new Date();
-                    const selected = new Date(selectedDate);
+            dateInput.addEventListener('change', () => {
+                const selectedDate = dateInput.value;
+                const now = new Date();
+                const selected = new Date(selectedDate);
 
-                    if (selected.toDateString() === now.toDateString()) {
-                        const currentTime = now.toTimeString().slice(0, 5);
-                        timeInput.min = currentTime;
-                    } else {
-                        timeInput.min = "00:00";
-                    }
-                });
-
-                const successMsg = document.getElementById('successMessage').dataset.msg;
-                if (successMsg) {
-                    alert(successMsg);
+                if (selected.toDateString() === now.toDateString()) {
+                    const currentTime = now.toTimeString().slice(0, 5);
+                    timeInput.min = currentTime;
+                } else {
+                    timeInput.min = "00:00";
                 }
-            </script>
+            });
+
+            const successMsg = document.getElementById('successMessage').dataset.msg;
+            if (successMsg) {
+                alert(successMsg);
+            }
+        </script>
 </body>
 
 </html>

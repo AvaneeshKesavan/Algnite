@@ -12,68 +12,71 @@
 </head>
 
 <body>
-  <%- include('partials/header') %>
+  <%- include('partials/loader') %>
+    <div class="main">
+      <%- include('partials/header') %>
 
 
-    <section class="services-page">
-      <div class="container">
-        <h1>Our Elderly Care Services</h1>
-        <div class="service-grid">
+        <section class="services-page">
+          <div class="container">
+            <h1>Our Elderly Care Services</h1>
+            <div class="service-grid">
 
-          <div class="service-card">
-            <img src="/img/service1.png" alt="Companionship" />
-            <h3>Companionship</h3>
-            <p>Friendly conversations and emotional support for elders.</p>
-            <a href="/services/companion" class="btn-secondary">More Info</a>
+              <div class="service-card">
+                <img src="/img/service1.png" alt="Companionship" />
+                <h3>Companionship</h3>
+                <p>Friendly conversations and emotional support for elders.</p>
+                <a href="/services/companion" class="btn-secondary">More Info</a>
+              </div>
+
+              <div class="service-card">
+                <img src="/img/service2.png" alt="Personal Care" />
+                <h3>Personal Care</h3>
+                <p>Support with daily hygiene, grooming, and dressing.</p>
+                <a href="/services/personal" class="btn-secondary">More Info</a>
+              </div>
+
+              <div class="service-card">
+                <img src="/img/service3.png" alt="Transportation" />
+                <h3>Transportation</h3>
+                <p>Safe travel to medical visits, shopping, and errands.</p>
+                <a href="/services/transport" class="btn-secondary">More Info</a>
+              </div>
+
+              <div class="service-card">
+                <img src="/img/service4.png" alt="Meal Preparation" />
+                <h3>Meal Preparation</h3>
+                <p>Nutritious home-cooked meals tailored to dietary needs.</p>
+                <a href="/services/mealprep" class="btn-secondary">More Info</a>
+              </div>
+
+              <div class="service-card">
+                <img src="/img/service5.png" alt="Medication Reminders" />
+                <h3>Medication Reminders</h3>
+                <p>Gentle reminders to help elders take medication on time.</p>
+                <a href="/services/medication" class="btn-secondary">More Info</a>
+              </div>
+
+              <div class="service-card">
+                <img src="/img/service6.png" alt="Housekeeping" />
+                <h3>Light Housekeeping</h3>
+                <p>Help with cleaning, laundry, and keeping living spaces safe.</p>
+                <a href="/services/housekeep" class="btn-secondary">More Info</a>
+              </div>
+
+            </div>
           </div>
+        </section>
 
-          <div class="service-card">
-            <img src="/img/service2.png" alt="Personal Care" />
-            <h3>Personal Care</h3>
-            <p>Support with daily hygiene, grooming, and dressing.</p>
-            <a href="/services/personal" class="btn-secondary">More Info</a>
-          </div>
+        <%- include('partials/footer') %>
+    </div>
 
-          <div class="service-card">
-            <img src="/img/service3.png" alt="Transportation" />
-            <h3>Transportation</h3>
-            <p>Safe travel to medical visits, shopping, and errands.</p>
-            <a href="/services/transport" class="btn-secondary">More Info</a>
-          </div>
-
-          <div class="service-card">
-            <img src="/img/service4.png" alt="Meal Preparation" />
-            <h3>Meal Preparation</h3>
-            <p>Nutritious home-cooked meals tailored to dietary needs.</p>
-            <a href="/services/mealprep" class="btn-secondary">More Info</a>
-          </div>
-
-          <div class="service-card">
-            <img src="/img/service5.png" alt="Medication Reminders" />
-            <h3>Medication Reminders</h3>
-            <p>Gentle reminders to help elders take medication on time.</p>
-            <a href="/services/medication" class="btn-secondary">More Info</a>
-          </div>
-
-          <div class="service-card">
-            <img src="/img/service6.png" alt="Housekeeping" />
-            <h3>Light Housekeeping</h3>
-            <p>Help with cleaning, laundry, and keeping living spaces safe.</p>
-            <a href="/services/housekeep" class="btn-secondary">More Info</a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <%- include('partials/footer') %>
-
-      <script>
-        function toggleMenu() {
-          const nav = document.getElementById("nav-links");
-          nav.classList.toggle("show");
-        }
-      </script>
+    <script>
+      function toggleMenu() {
+        const nav = document.getElementById("nav-links");
+        nav.classList.toggle("show");
+      }
+    </script>
 </body>
 
 </html>

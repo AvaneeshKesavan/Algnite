@@ -10,111 +10,117 @@
 </head>
 
 <body>
-  <div class="auth-container">
-    <h1>Welcome to Elder</h1>
+  <%- include('partials/loader') %>
+    <div class="auth-container">
+      <h1>Welcome to Elder</h1>
 
-    <!-- Choice -->
-    <% if (!showForm) { %>
-      <div id="choice-box">
-    <% } else { %>
-      <div id="choice-box" style="display:none;">
-    <% } %>
-        <button onclick="showForm('login')">Login</button>
-        <button onclick="showForm('register')">Register</button>
-      </div>
+      <!-- Choice -->
+      <% if (!showForm) { %>
+        <div id="choice-box">
+          <% } else { %>
+            <div id="choice-box" style="display:none;">
+              <% } %>
+                <button onclick="showForm('login')">Login</button>
+                <button onclick="showForm('register')">Register</button>
+            </div>
 
-    <!-- Login Form -->
-    <div id="login-form" class="auth-form hidden">
-      <h2>Login</h2>
-      <% if (showForm === 'login' && error) { %>
-        <div class="error"><%= error %></div>
-      <% } %>
-      <form action="/login" method="POST">
-        <input type="email" name="email" placeholder="Email" required />
-        <div class="password-wrapper">
-          <input type="password" name="password" placeholder="Password" required minlength="6" />
-          <span class="toggle-password" onclick="togglePassword(this)">O</span>
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form hidden">
+              <h2>Login</h2>
+              <% if (showForm==='login' && error) { %>
+                <div class="error">
+                  <%= error %>
+                </div>
+                <% } %>
+                  <form action="/login" method="POST">
+                    <input type="email" name="email" placeholder="Email" required />
+                    <div class="password-wrapper">
+                      <input type="password" name="password" placeholder="Password" required minlength="6" />
+                      <span class="toggle-password" onclick="togglePassword(this)">O</span>
+                    </div>
+                    <button type="submit">Login</button>
+                  </form>
+                  <p class="toggle-link">Don't have an account?
+                    <a href="#" onclick="showForm('register')">Register</a>
+                  </p>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="auth-form hidden">
+              <h2>Register</h2>
+              <% if (showForm==='register' && error) { %>
+                <div class="error">
+                  <%= error %>
+                </div>
+                <% } %>
+                  <form action="/register" method="POST" onsubmit="return handleRegistration(this)">
+                    <input type="text" name="fullname" placeholder="Full Name" required />
+                    <input type="email" name="email" placeholder="Email" required />
+                    <input type="date" id="dob" name="dob" required />
+                    <input type="hidden" name="age" id="age" />
+                    <input type="text" name="phone" placeholder="Contact Number" required pattern="[0-9]+"
+                      title="Digits only" />
+                    <input type="text" name="address" placeholder="Address" required />
+
+                    <select name="gender" required>
+                      <option value="" disabled selected>Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+
+                    <div class="password-wrapper">
+                      <input type="password" name="password" placeholder="Password" minlength="6" required />
+                      <span class="toggle-password" onclick="togglePassword(this)">👁️</span>
+                    </div>
+                    <button type="submit">Register</button>
+                  </form>
+                  <p class="toggle-link">Already have an account?
+                    <a href="#" onclick="showForm('login')">Login</a>
+                  </p>
+            </div>
         </div>
-        <button type="submit">Login</button>
-      </form>
-      <p class="toggle-link">Don't have an account?
-        <a href="#" onclick="showForm('register')">Register</a>
-      </p>
-    </div>
 
-    <!-- Register Form -->
-    <div id="register-form" class="auth-form hidden">
-      <h2>Register</h2>
-      <% if (showForm === 'register' && error) { %>
-        <div class="error"><%= error %></div>
-      <% } %>
-      <form action="/register" method="POST" onsubmit="return handleRegistration(this)">
-        <input type="text" name="fullname" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="date" id="dob" name="dob" required />
-        <input type="hidden" name="age" id="age" />
-        <input type="text" name="phone" placeholder="Contact Number" required pattern="[0-9]+" title="Digits only" />
-        <input type="text" name="address" placeholder="Address" required />
+        <script>
+          function showForm(formType) {
+            document.getElementById('choice-box').style.display = 'none';
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.add('hidden');
 
-        <select name="gender" required>
-          <option value="" disabled selected>Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
+            if (formType === 'login') {
+              document.getElementById('login-form').classList.remove('hidden');
+            } else {
+              document.getElementById('register-form').classList.remove('hidden');
+            }
+          }
 
-        <div class="password-wrapper">
-          <input type="password" name="password" placeholder="Password" minlength="6" required />
-          <span class="toggle-password" onclick="togglePassword(this)">👁️</span>
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <p class="toggle-link">Already have an account?
-        <a href="#" onclick="showForm('login')">Login</a>
-      </p>
-    </div>
-  </div>
+          function handleRegistration(form) {
+            const dob = document.getElementById('dob').value;
+            if (dob) {
+              const birth = new Date(dob);
+              const age = Math.floor((new Date() - birth) / (1000 * 60 * 60 * 24 * 365.25));
+              document.getElementById('age').value = age;
+            }
+            return true;
+          }
 
-  <script>
-    function showForm(formType) {
-      document.getElementById('choice-box').style.display = 'none';
-      document.getElementById('login-form').classList.add('hidden');
-      document.getElementById('register-form').classList.add('hidden');
+          function togglePassword(icon) {
+            const input = icon.previousElementSibling;
+            input.type = input.type === 'password' ? 'text' : 'password';
+            icon.textContent = input.type === 'password' ? 'O' : '*';
+          }
 
-      if (formType === 'login') {
-        document.getElementById('login-form').classList.remove('hidden');
-      } else {
-        document.getElementById('register-form').classList.remove('hidden');
-      }
-    }
+          // Automatically show form if showForm is passed from server
+          const showFormType = "<%= showForm || '' %>";
+          window.onload = function () {
+            const today = new Date().toISOString().split("T")[0];
+            document.getElementById("dob").max = today;
 
-    function handleRegistration(form) {
-      const dob = document.getElementById('dob').value;
-      if (dob) {
-        const birth = new Date(dob);
-        const age = Math.floor((new Date() - birth) / (1000 * 60 * 60 * 24 * 365.25));
-        document.getElementById('age').value = age;
-      }
-      return true;
-    }
-
-    function togglePassword(icon) {
-      const input = icon.previousElementSibling;
-      input.type = input.type === 'password' ? 'text' : 'password';
-      icon.textContent = input.type === 'password' ? 'O' : '*';
-    }
-
-    // Automatically show form if showForm is passed from server
-    const showFormType = "<%= showForm || '' %>";
-    window.onload = function () {
-      const today = new Date().toISOString().split("T")[0];
-      document.getElementById("dob").max = today;
-
-      if (showFormType) {
-        showForm(showFormType);
-      }
-    };
-  </script>
+            if (showFormType) {
+              showForm(showFormType);
+            }
+          };
+        </script>
 </body>
 
 </html>

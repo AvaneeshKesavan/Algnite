@@ -1,0 +1,139 @@
+<div id="custom-loader">
+  <div class="logo-assemble">
+    <div class="bar top-bar"></div>
+    <div class="bar middle-bar"></div>
+    <div class="bar bottom-bar"></div>
+  </div>
+  <h1 class="company-name">Elder</h1>
+  <p class="company-quote">Caring like your children do.</p>
+</div>
+
+<style>
+  /* Loader full-screen container */
+  #custom-loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000000; /* Black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  /* Bars making up the 'E' */
+  .logo-assemble {
+    position: relative;
+    width: 160px;
+    height: 180px;
+    margin-bottom: 25px;
+  }
+
+  /* Bar shared styles */
+  .bar {
+    position: absolute;
+    height: 22px;
+    background: #f1c40f; /* Yellow bar color */
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    left: 20px;
+    opacity: 0.3;
+  }
+
+  /* Position bars with infinite repeating animations */
+  .top-bar {
+    width: 110px;
+    top: 20px;
+    animation: slideInTop 1.5s infinite ease-in-out;
+  }
+
+  .middle-bar {
+    width: 75px;
+    top: 80px;
+    animation: slideInMid 1.5s infinite ease-in-out 0.5s;
+  }
+
+  .bottom-bar {
+    width: 110px;
+    top: 140px;
+    animation: slideInBottom 1.5s infinite ease-in-out 1s;
+  }
+
+  /* Slide animations with opacity fade and horizontal movement */
+  @keyframes slideInTop {
+    0%, 100% {
+      transform: translateX(-40px);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInMid {
+    0%, 100% {
+      transform: translateX(-50px);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInBottom {
+    0%, 100% {
+      transform: translateX(-40px);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .company-name {
+    font-family: 'Segoe UI', sans-serif;
+    color: #ffffff;
+    font-size: 44px;
+    font-weight: bold;
+    margin: 12px 0 8px;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards 1.2s;
+  }
+
+  .company-quote {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    max-width: 90%;
+    line-height: 1.5;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards 1.8s;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  window.addEventListener("load", () => {
+    // Wait 3 seconds (for demo) then fade out loader
+    setTimeout(() => {
+      const loader = document.getElementById("custom-loader");
+      loader.style.opacity = "0";
+      setTimeout(() => {
+        loader.style.display = "none";
+      }, 800);
+    }, 2500);
+  });
+</script>

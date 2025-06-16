@@ -1,4 +1,4 @@
-body {
+.main {
   padding-top: 120px;
   background: #ffffff;
   color: black;
@@ -67,7 +67,8 @@ body {
   border-collapse: collapse;
 }
 
-.booking-table th, .booking-table td {
+.booking-table th,
+.booking-table td {
   padding: 12px;
   border-bottom: 1px solid #ffcc00;
   text-align: left;
@@ -104,14 +105,17 @@ body {
     margin: 20px;
     padding: 20px;
   }
+
   .book-container h2 {
     font-size: 22px;
   }
+
   .book-container input,
   .book-container select,
   .book-container textarea {
     font-size: 14px;
   }
+
   .book-container button {
     font-size: 14px;
   }

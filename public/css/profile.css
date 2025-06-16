@@ -1,7 +1,10 @@
+.main {
+  padding-top: 200px;
+}
+
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 200px;
     background: #fffde6;
     color: #000;
 }

@@ -1,96 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Elder</title>
-    <link rel="icon" type="image/x-icon" href="img/elder.ico" />
-    <link rel="stylesheet" href="css/global.css" />
-    <link rel="stylesheet" href="css/home.css" />
-  </head>
 
-  <body>
-    <%- include('partials/header') %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elder</title>
+  <link rel="icon" type="image/x-icon" href="img/elder.ico" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
 
-    <section class="hero">
-      <img
-        class="hero-image"
-        src="img/home.png"
-        alt="children taking care of grandparents"
-      />
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1>“You're never alone - We're here like your children”</h1>
-        <p>
-          Companionship, care, and support when your children can't be there.
-        </p>
-        <div class="hero-buttons">
-          <a href="/book"
-            ><button class="btn-primary">Book a Free Trial</button></a
-          >
-          <a href="/services"
-            ><button class="btn-secondary">View Services</button></a
-          >
-        </div>
-      </div>
-    </section>
+<body>
+  <%- include('partials/loader') %>
+    <div class="main">
+      <%- include('partials/header') %>
 
-    <section class="about">
-      <img
-        class="about-img"
-        src="img/mission.png"
-        alt="mission is to help elders"
-      />
-      <div class="mission">
-        <h2>Our Mission</h2>
-        <p>
-          At Elder, we are dedicated to providing compassionate and personalized
-          care for seniors. Our mission is to enhance the quality of life for
-          our clients by offering companionship, assistance with daily
-          activities, and a sense of security.
-        </p>
-      </div>
-    </section>
+        <section class="hero">
+          <img class="hero-image" src="img/home.png" alt="children taking care of grandparents" />
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <h1>“You're never alone - We're here like your children”</h1>
+            <p>
+              Companionship, care, and support when your children can't be there.
+            </p>
+            <div class="hero-buttons">
+              <a href="/book"><button class="btn-primary">Book a Free Trial</button></a>
+              <a href="/services"><button class="btn-secondary">View Services</button></a>
+            </div>
+          </div>
+        </section>
 
-    <section class="services">
-      <div class="container">
-        <h2>Our Services</h2>
-        <div class="service-scroll-wrapper">
-          <div class="service-card">
-            <img src="img/service1.png" alt="Companionship" />
-            <h3>Companionship</h3>
-            <p>Providing companionship and emotional support to seniors.</p>
+        <section class="about">
+          <img class="about-img" src="img/mission.png" alt="mission is to help elders" />
+          <div class="mission">
+            <h2>Our Mission</h2>
+            <p>
+              At Elder, we are dedicated to providing compassionate and personalized
+              care for seniors. Our mission is to enhance the quality of life for
+              our clients by offering companionship, assistance with daily
+              activities, and a sense of security.
+            </p>
           </div>
-          <div class="service-card">
-            <img src="img/service2.png" alt="Personal Care" />
-            <h3>Personal Care</h3>
-            <p>Helping with bathing, dressing, and grooming daily.</p>
-          </div>
-          <div class="service-card">
-            <img src="img/service3.png" alt="Transportation" />
-            <h3>Transportation</h3>
-            <p>Reliable rides to appointments, shops, or visits.</p>
-          </div>
-          <div class="service-card">
-            <img src="img/service4.png" alt="Meal Prep" />
-            <h3>Meal Preparation</h3>
-            <p>Healthy, home-cooked meals prepared with care.</p>
-          </div>
-          <div class="service-card">
-            <img src="img/service5.png" alt="Medication Reminder" />
-            <h3>Medication Reminders</h3>
-            <p>Timely reminders to ensure proper medication intake.</p>
-          </div>
-          <div class="service-card">
-            <img src="img/service6.png" alt="Home Assistance" />
-            <h3>Home Assistance</h3>
-            <p>Light housekeeping and help around the house.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <%- include('partials/footer') %>
+        <section class="services">
+          <div class="container">
+            <h2>Our Services</h2>
+            <div class="service-scroll-wrapper">
+              <div class="service-card">
+                <img src="img/service1.png" alt="Companionship" />
+                <h3>Companionship</h3>
+                <p>Providing companionship and emotional support to seniors.</p>
+              </div>
+              <div class="service-card">
+                <img src="img/service2.png" alt="Personal Care" />
+                <h3>Personal Care</h3>
+                <p>Helping with bathing, dressing, and grooming daily.</p>
+              </div>
+              <div class="service-card">
+                <img src="img/service3.png" alt="Transportation" />
+                <h3>Transportation</h3>
+                <p>Reliable rides to appointments, shops, or visits.</p>
+              </div>
+              <div class="service-card">
+                <img src="img/service4.png" alt="Meal Prep" />
+                <h3>Meal Preparation</h3>
+                <p>Healthy, home-cooked meals prepared with care.</p>
+              </div>
+              <div class="service-card">
+                <img src="img/service5.png" alt="Medication Reminder" />
+                <h3>Medication Reminders</h3>
+                <p>Timely reminders to ensure proper medication intake.</p>
+              </div>
+              <div class="service-card">
+                <img src="img/service6.png" alt="Home Assistance" />
+                <h3>Home Assistance</h3>
+                <p>Light housekeeping and help around the house.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <%- include('partials/footer') %>
+    </div>
 
     <script>
       function toggleMenu() {
@@ -98,5 +90,6 @@
         nav.classList.toggle("show");
       }
     </script>
-  </body>
+</body>
+
 </html>
