@@ -1,0 +1,134 @@
+<!-- companionship.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elder | Companionship Services</title>
+  <link rel="icon" type="image/x-icon" href="img/elder.ico">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/servicesub.css" />
+</head>
+
+<body>
+  <%- include('partials/header') %>
+
+  <section class="service-hero companionship-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Companionship Care</h1>
+        <p class="lead">Bringing joy and connection to our elders' daily lives</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-details bg-light-yellow">
+    <div class="container">
+      <div class="service-content">
+        <h2>Why Companionship Matters</h2>
+        <p>Loneliness can significantly impact seniors' health and wellbeing. Our companionship services provide meaningful social interaction to keep your loved ones engaged and happy.</p>
+        
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">💬</div>
+            <h3>Friendly Conversation</h3>
+            <p>Engaging discussions and active listening to combat isolation</p>
+          </div>
+          
+          <div class="benefit-card">
+            <div class="benefit-icon">🧩</div>
+            <h3>Shared Activities</h3>
+            <p>Enjoying hobbies together like puzzles, crafts, and reading</p>
+          </div>
+          
+          <div class="benefit-card">
+            <div class="benefit-icon">🚶</div>
+            <h3>Accompanied Outings</h3>
+            <p>Safe companionship for walks and community outings</p>
+          </div>
+          
+          <div class="benefit-card">
+            <div class="benefit-icon">📖</div>
+            <h3>Life Stories</h3>
+            <p>Documenting and preserving precious memories</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-testimonials">
+    <div class="container">
+      <h2>How Companionship Helps</h2>
+      <div class="impact-list">
+        <div class="impact-item">
+          <span class="checkmark">✓</span>
+          <p>Reduces feelings of loneliness and depression</p>
+        </div>
+        <div class="impact-item">
+          <span class="checkmark">✓</span>
+          <p>Improves cognitive function through conversation</p>
+        </div>
+        <div class="impact-item">
+          <span class="checkmark">✓</span>
+          <p>Provides emotional support and stability</p>
+        </div>
+        <div class="impact-item">
+          <span class="checkmark">✓</span>
+          <p>Encourages social engagement and activity</p>
+        </div>
+      </div>
+      
+      <div class="testimonial">
+        <blockquote>
+          "My companion has become like family. Our weekly visits are the highlight of my schedule."
+        </blockquote>
+        <p class="author">- Margaret, 82</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-stats bg-light-yellow">
+    <div class="container">
+      <h2>The Impact of Companionship</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">85%</div>
+          <div class="stat-label">Happier Elders</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3x</div>
+          <div class="stat-label">More Social Engagement</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+      </div>
+      <p class="center-text">Our companionship services bring measurable improvements to quality of life for seniors living alone or needing social support.</p>
+    </div>
+  </section>
+
+  <section class="service-cta">
+    <div class="container">
+      <h2>Ready to Bring Joy to an Elder's Life?</h2>
+      <p>Our companionship services are tailored to each individual's interests and needs.</p>
+      <div class="cta-buttons">
+        <a href="/contact" class="btn-primary">Contact Us</a>
+        <a href="/services" class="btn-secondary">Other Services</a>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/footer') %>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+  </script>
+</body>
+
+</html>

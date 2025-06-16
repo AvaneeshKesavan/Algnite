@@ -75,6 +75,24 @@ app.get("/", (req, res) => {
 // About / Services
 app.get("/about", (req, res) => res.render("about", { user: req.session?.user }))
 app.get("/services", (req, res) => res.render("services", { user: req.session?.user }))
+app.get("/services/companion", (req, res) => {
+  res.render("companion", { user: req.session?.user });
+});
+app.get("/services/housekeep", (req, res) => {
+  res.render("housekeep", { user: req.session?.user });
+});
+app.get("/services/mealprep", (req, res) => {
+  res.render("mealprep", { user: req.session?.user });
+});
+app.get("/services/medication", (req, res) => {
+  res.render("medication", { user: req.session?.user });
+});
+app.get("/services/personal", (req, res) => {
+  res.render("personal", { user: req.session?.user });
+});
+app.get("/services/transport", (req, res) => {
+  res.render("transport", { user: req.session?.user });
+});
 app.get("/volunteer", (req, res) => res.render("volunteer", { user: req.session?.user }))
 
 // Contact
