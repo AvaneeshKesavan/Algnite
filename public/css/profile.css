@@ -17,11 +17,6 @@ body {
     text-align: center;
 }
 
-.profile-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 24px -6px #0005;
-}
-
 .profile-container h2 {
     font-size: 32px;
     margin-bottom: 30px;
@@ -65,7 +60,7 @@ body {
 }
 
 .profile-container span:hover {
-    background: #ffcc0077;
+    background: #f8f3de77;
     box-shadow: 0 4px 6px -1px black;
 }
 
