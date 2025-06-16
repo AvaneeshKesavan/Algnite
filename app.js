@@ -3,30 +3,28 @@ const session = require('express-session');
 const path = require('path');
 const multer = require('multer');
 const Database = require('better-sqlite3');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const port = 3000;
 
-// Separate databases
-const db = new Database("./data.db"); // for messages, booking
-const usersDb = new Database("./users.db"); // for registration and authentication
+// Databases
+const db = new Database("./data.db");
+const usersDb = new Database("./users.db");
 
 const ADMIN_EMAIL = 'admin@example.com';
-
 
 // Middleware
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
-
 app.use(session({ secret: 'yourSecretKey', resave: false, saveUninitialized: true }));
 
-// File upload
+// File upload setup
 const upload = multer({ dest: 'public/uploads/' });
-
 app.use('/uploads', express.static(path.resolve('public/uploads')));
 
-// Ensure messages and booking
+// Tables setup
 db.prepare(`
   CREATE TABLE IF NOT EXISTS contacts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,8 +32,7 @@ db.prepare(`
     email TEXT NOT NULL,
     subject TEXT,
     message TEXT NOT NULL
-  )
-`).run();
+)`).run();
 
 db.prepare(`
   CREATE TABLE IF NOT EXISTS bookings (
@@ -47,11 +44,8 @@ db.prepare(`
     time TEXT,
     note TEXT,
     status TEXT DEFAULT 'pending'
-  )
-`).run();
+)`).run();
 
-
-// Ensure users table with profilePicture
 usersDb.prepare(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -63,52 +57,34 @@ usersDb.prepare(`
     address TEXT,
     phone TEXT,
     profilePicture TEXT
-  )
-`).run();
+)`).run();
 
+// Clear flash messages
+function clearFlash(req) {
+  req.session.success = null;
+  req.session.error = null;
+}
 
-// Home
-app.get("/", (req, res) => {
-  res.render("index", { user: req.session?.user });
-});
+// Routes
+app.get("/", (req, res) => res.render("index", { user: req.session?.user }));
 
-// About / Services
-app.get("/about", (req, res) => res.render("about", { user: req.session?.user }))
-app.get("/services", (req, res) => res.render("services", { user: req.session?.user }))
-app.get("/services/companion", (req, res) => {
-  res.render("companion", { user: req.session?.user });
-});
-app.get("/services/housekeep", (req, res) => {
-  res.render("housekeep", { user: req.session?.user });
-});
-app.get("/services/mealprep", (req, res) => {
-  res.render("mealprep", { user: req.session?.user });
-});
-app.get("/services/medication", (req, res) => {
-  res.render("medication", { user: req.session?.user });
-});
-app.get("/services/personal", (req, res) => {
-  res.render("personal", { user: req.session?.user });
-});
-app.get("/services/transport", (req, res) => {
-  res.render("transport", { user: req.session?.user });
-});
-app.get("/volunteer", (req, res) => res.render("volunteer", { user: req.session?.user }))
+app.get("/about", (req, res) => res.render("about", { user: req.session?.user }));
+app.get("/volunteer", (req, res) => res.render("volunteer", { user: req.session?.user }));
+app.get("/services", (req, res) => res.render("services", { user: req.session?.user }));
+app.get("/services/:type", (req, res) => res.render(req.params.type, { user: req.session?.user }));
 
 // Contact
 app.get("/contact", (req, res) => {
   const success = req.session.success;
-  delete req.session.success;
+  clearFlash(req);
   res.render("contact", { user: req.session?.user, success });
 });
 
-// Handle contact form submission
 app.post("/contact", (req, res) => {
   const { name, email, subject, message } = req.body;
   try {
-    db.prepare(`
-      INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)`
-    ).run(name, email, subject, message);
+    db.prepare(`INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)`)
+      .run(name, email, subject, message);
     req.session.success = "Thank you for contacting us!";
   } catch (err) {
     req.session.success = "Something went wrong. Please try again.";
@@ -116,74 +92,81 @@ app.post("/contact", (req, res) => {
   res.redirect("/contact");
 });
 
-// Authentication
+// Auth pages
 app.get("/login", (req, res) => {
-  res.render("auth", { isLogin: true, error: null, user: null, next: '' });
+  const error = req.session.error;
+  req.session.error = null;
+  res.render("auth", { isLogin: true, error, user: null, next: '', showForm: 'login' });
 });
 
-// Handle login
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
-  if (!user) {
-    return res.render('auth', { isLogin: true, error: 'Email not registered!', user: null, next: '' });
-  }
-  if (user.password !== password) {
-    return res.render('auth', { isLogin: true, error: 'Invalid password!', user: null, next: '' });
-  }
-
-  req.session.user = user;
-
-  if (email === ADMIN_EMAIL) {
-    return res.redirect('/admin');
-  }
-
-  res.redirect('/profile');
+app.get("/register", (req, res) => {
+  const error = req.session.error;
+  req.session.error = null;
+  res.render("auth", { isLogin: false, error, user: null, next: '', showForm: 'register' });
 });
 
 // Register
-app.get("/register", (req, res) => {
-  res.render("auth", { isLogin: false, error: null, user: null, next: '' });
-});
-
-// Handle registration
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   const { fullname, email, password, age, gender, address, phone } = req.body;
-
   if (!fullname || !email || !password || !phone) {
-    return res.render('auth', { isLogin: false, error: 'Please fill in all required fields', user: null, next: '' });
+    req.session.error = 'Please fill in all required fields';
+    return res.redirect('/register');
   }
   if (password.length < 6) {
-    return res.render('auth', { isLogin: false, error: 'Password must be at least 6 characters', user: null, next: '' });
+    req.session.error = 'Password must be at least 6 characters';
+    return res.redirect('/register');
   }
 
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
     usersDb.prepare(`
       INSERT INTO users (fullname, email, password, age, gender, address, phone)
-      VALUES (?, ?, ?, ?, ?, ?, ?)`
-    ).run(fullname, email, password, age, gender, address, phone);
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).run(fullname, email, hashedPassword, age, gender, address, phone);
 
     const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
     req.session.user = user;
     res.redirect('/profile');
   } catch (err) {
-    res.render('auth', { isLogin: false, error: 'Email already in use or something went wrong!', user: null, next: '' });
+    req.session.error = 'Email already in use or something went wrong!';
+    res.redirect('/register');
   }
 });
 
-// Profile view
+// Login
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
+
+  if (!user) {
+    req.session.error = 'Email not registered!';
+    return res.redirect('/login');
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    req.session.error = 'Invalid password!';
+    return res.redirect('/login');
+  }
+
+  req.session.user = user;
+  if (email === ADMIN_EMAIL) {
+    return res.redirect('/admin');
+  }
+  res.redirect('/profile');
+});
+
+// Profile
 app.get("/profile", (req, res) => {
   if (!req.session?.user) return res.redirect("/login");
-
   res.render("profile", { user: req.session?.user });
 });
 
-// Update profile
 app.post("/profile/update", upload.single('profilePicture'), (req, res) => {
   if (!req.session?.user) return res.redirect("/login");
 
   const { fullname, age, gender, address, phone } = req.body;
-  let profilePicture = req.session?.user?.profilePicture;
+  let profilePicture = req.session.user.profilePicture;
 
   if (req.file) {
     profilePicture = req.file.filename;
@@ -191,136 +174,80 @@ app.post("/profile/update", upload.single('profilePicture'), (req, res) => {
 
   usersDb.prepare(`
     UPDATE users SET fullname = ?, age = ?, gender = ?, address = ?, phone = ?, profilePicture = ?
-    WHERE id = ?`
-  ).run(fullname, age, gender, address, phone, profilePicture, req.session?.user?.id);
+    WHERE id = ?
+  `).run(fullname, age, gender, address, phone, profilePicture, req.session.user.id);
 
-  // Update session
-  req.session.user = usersDb.prepare('SELECT * FROM users WHERE id = ?').get(req.session?.user?.id);
-
+  req.session.user = usersDb.prepare('SELECT * FROM users WHERE id = ?').get(req.session.user.id);
   res.redirect('/profile');
 });
 
-// Book
+// Booking
 app.get("/book", (req, res) => {
-  if (!req.session?.user) {
-    return res.redirect("/login?next=/book");
-  }
+  if (!req.session?.user) return res.redirect("/login?next=/book");
   const success = req.session.success;
-  delete req.session.success;
+  clearFlash(req);
 
-  // Retrieve all booking made by this user
-  const bookingList = db.prepare('SELECT * FROM bookings WHERE email = ?').all(req.session?.user?.email);
-
-  res.render("book", {
-    user: req.session?.user,
-    success,
-    bookingList
-  });
+  const bookingList = db.prepare('SELECT * FROM bookings WHERE email = ?').all(req.session.user.email);
+  res.render("book", { user: req.session.user, success, bookingList });
 });
 
-// Handle booking
 app.post("/book", (req, res) => {
   const { name, email, service, date, time, note } = req.body;
   try {
     db.prepare(`
-      INSERT INTO bookings (name, email, service, date, time, note, status) VALUES (?, ?, ?, ?, ?, ?, ?)`
-    ).run(name, email, service, date, time, note, 'pending');
+      INSERT INTO bookings (name, email, service, date, time, note, status)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).run(name, email, service, date, time, note, 'pending');
+
     req.session.success = "Booking successful!";
-  } catch (err) {
+  } catch {
     req.session.success = "Booking failed. Please try again.";
   }
   res.redirect("/book");
 });
 
 // Admin Dashboard
-// Admin Dashboard Routes
 app.get("/admin", (req, res) => {
-  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
-    return res.redirect("/");
-  }
-
+  if (!req.session?.user || req.session.user.email !== ADMIN_EMAIL) return res.redirect("/");
   const users = usersDb.prepare("SELECT * FROM users").all();
-
-  res.render("admin", {
-    user: req.session?.user,
-    users,
-    bookings: [],
-    contacts: [],
-    currentPage: 'users'
-  });
+  res.render("admin", { user: req.session.user, users, bookings: [], contacts: [], currentPage: 'users' });
 });
 
 app.get("/admin/bookings", (req, res) => {
-  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
-    return res.redirect("/");
-  }
-
+  if (!req.session?.user || req.session.user.email !== ADMIN_EMAIL) return res.redirect("/");
   const bookings = db.prepare("SELECT * FROM bookings").all();
-
-  res.render("admin", {
-    user: req.session?.user,
-    users: [],
-    bookings,
-    contacts: [],
-    currentPage: 'bookings'
-  });
+  res.render("admin", { user: req.session.user, users: [], bookings, contacts: [], currentPage: 'bookings' });
 });
 
 app.get("/admin/messages", (req, res) => {
-  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
-    return res.redirect("/");
-  }
-
+  if (!req.session?.user || req.session.user.email !== ADMIN_EMAIL) return res.redirect("/");
   const contacts = db.prepare("SELECT * FROM contacts").all();
-
-  res.render("admin", {
-    user: req.session?.user,
-    users: [],
-    bookings: [],
-    contacts,
-    currentPage: 'messages'
-  });
+  res.render("admin", { user: req.session.user, users: [], bookings: [], contacts, currentPage: 'messages' });
 });
 
-// Booking Status Update Routes
+// Booking status change
 app.post("/admin/bookings/approve", (req, res) => {
-  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
-    return res.redirect("/");
-  }
-
-  const { id } = req.body;
-  db.prepare("UPDATE bookings SET status = 'approved' WHERE id = ?").run(id);
+  if (req.session?.user?.email !== ADMIN_EMAIL) return res.redirect("/");
+  db.prepare("UPDATE bookings SET status = 'approved' WHERE id = ?").run(req.body.id);
   res.redirect("/admin/bookings");
 });
 
 app.post("/admin/bookings/reject", (req, res) => {
-  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
-    return res.redirect("/");
-  }
-
-  const { id } = req.body;
-  db.prepare("UPDATE bookings SET status = 'rejected' WHERE id = ?").run(id);
+  if (req.session?.user?.email !== ADMIN_EMAIL) return res.redirect("/");
+  db.prepare("UPDATE bookings SET status = 'rejected' WHERE id = ?").run(req.body.id);
   res.redirect("/admin/bookings");
 });
 
 app.post("/admin/bookings/request-change", (req, res) => {
-  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
-    return res.redirect("/");
-  }
-
-  const { id, newDate } = req.body;
-  db.prepare("UPDATE bookings SET status = 'change-requested', date = ? WHERE id = ?").run(newDate, id);
+  if (req.session?.user?.email !== ADMIN_EMAIL) return res.redirect("/");
+  db.prepare("UPDATE bookings SET status = 'change-requested', date = ? WHERE id = ?").run(req.body.newDate, req.body.id);
   res.redirect("/admin/bookings");
 });
 
 // Logout
 app.get("/logout", (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/');
-  });
+  req.session.destroy(() => res.redirect('/'));
 });
 
 // Start
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+app.listen(port, () => console.log(`Server running at http://localhost:${port}`));

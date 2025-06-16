@@ -5,7 +5,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #ffffff;
   min-height: 100vh;
@@ -59,7 +60,8 @@ html, body {
 
 .auth-form input,
 .auth-form select {
-  margin-bottom: 25px; /* Increase from 15px or 20px */
+  margin-bottom: 25px;
+  /* Increase from 15px or 20px */
 }
 
 .auth-form h2 {
@@ -135,4 +137,29 @@ html, body {
     width: 100%;
     margin: 10px 0;
   }
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.error {
+  background-color: #ffe0e0;
+  color: #d8000c;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #d8000c;
+}
+
+.hidden {
+  display: none;
 }
