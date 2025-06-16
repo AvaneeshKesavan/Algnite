@@ -12,7 +12,7 @@ body {
     position: relative;
     height: 70vh;
     min-height: 500px;
-    background: url('../img/volunteer-hero.jpg') center/cover no-repeat;
+    background: url('../img/volunteer-hero.png') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
