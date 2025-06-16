@@ -1,21 +1,33 @@
 body {
   padding-top: 120px;
+  background: #fffde6;
+  color: black;
 }
 
 .book-container {
   max-width: 600px;
   margin: 60px auto;
-  background: #f7f7f7;
+  background: #ffffff;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px #0003;
+  border: 2px solid #ffcc00;
+  transition: transform 0.3s ease;
+}
+
+.book-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 24px -6px #0005;
 }
 
 .book-container h2 {
   text-align: center;
   margin-bottom: 25px;
   font-size: 28px;
-  color: #222;
+  color: black;
+  background: #ffcc00;
+  padding: 15px;
+  border-radius: 10px;
 }
 
 .book-container form {
@@ -28,26 +40,69 @@ body {
 .book-container select,
 .book-container textarea {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ffcc00;
   border-radius: 6px;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
+  background: #ffcc0044;
 }
 
 .book-container button {
   padding: 12px;
-  background-color: #f9e50e;
+  background: black;
+  color: #ffcc00;
   border: none;
   border-radius: 6px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .book-container button:hover {
-  background-color: #e0cf00;
+  background: #ffcc00;
+  color: black;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px -2px black;
+}
+
+.booking-table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+}
+
+.booking-table th, .booking-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ffcc00;
+  text-align: left;
+}
+
+.booking-table tr:hover {
+  background: #fffacc;
+}
+
+.status {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background: #ffcc80;
+  color: #ff6600;
+}
+
+.status.accepted {
+  background: #ccffcc;
+  color: #009933;
+}
+
+.status.rejected {
+  background: #ff9999;
+  color: #cc0000;
 }
 
 @media (max-width: 600px) {
@@ -55,17 +110,14 @@ body {
     margin: 20px;
     padding: 20px;
   }
-
   .book-container h2 {
     font-size: 22px;
   }
-
   .book-container input,
   .book-container select,
   .book-container textarea {
     font-size: 14px;
   }
-
   .book-container button {
     font-size: 14px;
   }

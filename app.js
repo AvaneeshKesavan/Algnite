@@ -13,6 +13,7 @@ const usersDb = new Database("./users.db"); // for registration and authenticati
 
 const ADMIN_EMAIL = 'admin@example.com';
 
+
 // Middleware
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -44,9 +45,11 @@ db.prepare(`
     service TEXT,
     date TEXT,
     time TEXT,
-    note TEXT
+    note TEXT,
+    status TEXT DEFAULT 'pending'
   )
 `).run();
+
 
 // Ensure users table with profilePicture
 usersDb.prepare(`
@@ -63,14 +66,15 @@ usersDb.prepare(`
   )
 `).run();
 
+
 // Home
 app.get("/", (req, res) => {
   res.render("index", { user: req.session?.user });
 });
 
 // About / Services
-app.get("/about", (req, res) => res.render("about", { user: req.session?.user }));
-app.get("/services", (req, res) => res.render("services", { user: req.session?.user }));
+app.get("/about", (req, res) => res.render("about", { user: req.session?.user }))
+app.get("/services", (req, res) => res.render("services", { user: req.session?.user }))
 app.get("/volunteer", (req, res) => res.render("volunteer", { user: req.session?.user }))
 
 // Contact
@@ -80,14 +84,13 @@ app.get("/contact", (req, res) => {
   res.render("contact", { user: req.session?.user, success });
 });
 
-
-
 // Handle contact form submission
 app.post("/contact", (req, res) => {
   const { name, email, subject, message } = req.body;
   try {
-    db.prepare(`INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)`).
-      run(name, email, subject, message);
+    db.prepare(`
+      INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)`
+    ).run(name, email, subject, message);
     req.session.success = "Thank you for contacting us!";
   } catch (err) {
     req.session.success = "Something went wrong. Please try again.";
@@ -97,47 +100,28 @@ app.post("/contact", (req, res) => {
 
 // Authentication
 app.get("/login", (req, res) => {
-  const next = req.query.next || '';
-  res.render("auth", { isLogin: true, error: null, user: null, next });
+  res.render("auth", { isLogin: true, error: null, user: null, next: '' });
 });
 
 // Handle login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
-
   if (!user) {
-    return res.render('auth', { isLogin: true, error: 'Email not registered!', user: null });
+    return res.render('auth', { isLogin: true, error: 'Email not registered!', user: null, next: '' });
   }
-  if (user.password !== password) {
-    return res.render('auth', { isLogin: true, error: 'Invalid password!', user: null });
+  if (user.password !== password) { 
+    return res.render('auth', { isLogin: true, error: 'Invalid password!', user: null, next: '' });
   }
-
+  
   req.session.user = user;
-  if (user.email === ADMIN_EMAIL) {
-    return res.redirect("/admin");
+
+  if (email === ADMIN_EMAIL) {
+    return res.redirect('/admin'); 
   }
-  res.redirect("/profile");
+  
+  res.redirect('/profile'); 
 });
-
-// Admin Dashboard Route
-app.get("/admin", (req, res) => {
-  if (!req.session?.user || req.session.user.email !== ADMIN_EMAIL) {
-    return res.redirect("/");
-  }
-
-  const users = usersDb.prepare("SELECT * FROM users").all();
-  const bookings = db.prepare("SELECT * FROM bookings").all();
-  const contacts = db.prepare("SELECT * FROM contacts").all();
-
-  res.render("admin", {
-    user: req.session.user, // ✅ add this line to fix the error
-    users,
-    bookings,
-    contacts,
-  });
-});
-
 
 // Register
 app.get("/register", (req, res) => {
@@ -154,7 +138,7 @@ app.post("/register", (req, res) => {
   if (password.length < 6) {
     return res.render('auth', { isLogin: false, error: 'Password must be at least 6 characters', user: null, next: '' });
   }
-
+  
   try {
     usersDb.prepare(`
       INSERT INTO users (fullname, email, password, age, gender, address, phone)
@@ -163,7 +147,7 @@ app.post("/register", (req, res) => {
 
     const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
     req.session.user = user;
-    res.redirect('/profile');
+    res.redirect('/profile'); 
   } catch (err) {
     res.render('auth', { isLogin: false, error: 'Email already in use or something went wrong!', user: null, next: '' });
   }
@@ -172,6 +156,7 @@ app.post("/register", (req, res) => {
 // Profile view
 app.get("/profile", (req, res) => {
   if (!req.session?.user) return res.redirect("/login");
+
   res.render("profile", { user: req.session?.user });
 });
 
@@ -185,25 +170,34 @@ app.post("/profile/update", upload.single('profilePicture'), (req, res) => {
   if (req.file) {
     profilePicture = req.file.filename;
   }
-
+  
   usersDb.prepare(`
     UPDATE users SET fullname = ?, age = ?, gender = ?, address = ?, phone = ?, profilePicture = ?
-    WHERE id = ?
-  `).run(fullname, age, gender, address, phone, profilePicture, req.session?.user?.id);
-
+    WHERE id = ?`
+  ).run(fullname, age, gender, address, phone, profilePicture, req.session?.user?.id);
+  
+  // Update session
   req.session.user = usersDb.prepare('SELECT * FROM users WHERE id = ?').get(req.session?.user?.id);
-
-  res.redirect('/profile');
+  
+  res.redirect('/profile'); 
 });
 
 // Book
 app.get("/book", (req, res) => {
-  if (!req.session.user) {
+  if (!req.session?.user) {
     return res.redirect("/login?next=/book");
   }
   const success = req.session.success;
   delete req.session.success;
-  res.render("book", { user: req.session.user, success });
+
+  // Retrieve all booking made by this user
+  const bookingList = db.prepare('SELECT * FROM bookings WHERE email = ?').all(req.session?.user?.email);
+
+  res.render("book", { 
+    user: req.session?.user, 
+    success, 
+    bookingList 
+  });
 });
 
 // Handle booking
@@ -211,13 +205,31 @@ app.post("/book", (req, res) => {
   const { name, email, service, date, time, note } = req.body;
   try {
     db.prepare(`
-      INSERT INTO bookings (name, email, service, date, time, note) VALUES (?, ?, ?, ?, ?, ?)`
-    ).run(name, email, service, date, time, note);
+      INSERT INTO bookings (name, email, service, date, time, note, status) VALUES (?, ?, ?, ?, ?, ?, ?)`
+    ).run(name, email, service, date, time, note, 'pending'); 
     req.session.success = "Booking successful!";
   } catch (err) {
     req.session.success = "Booking failed. Please try again.";
   }
   res.redirect("/book");
+});
+
+// Admin Dashboard
+app.get("/admin", (req, res) => {
+  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
+    return res.redirect("/"); 
+  }
+  
+  const users = usersDb.prepare("SELECT * FROM users").all();
+  const bookings = db.prepare("SELECT * FROM bookings").all();
+  const contacts = db.prepare("SELECT * FROM contacts").all();
+
+  res.render("admin", { 
+    user: req.session?.user, 
+    users, 
+    bookings, 
+    contacts 
+  });
 });
 
 // Logout
