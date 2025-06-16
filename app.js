@@ -110,17 +110,17 @@ app.post("/login", (req, res) => {
   if (!user) {
     return res.render('auth', { isLogin: true, error: 'Email not registered!', user: null, next: '' });
   }
-  if (user.password !== password) { 
+  if (user.password !== password) {
     return res.render('auth', { isLogin: true, error: 'Invalid password!', user: null, next: '' });
   }
-  
+
   req.session.user = user;
 
   if (email === ADMIN_EMAIL) {
-    return res.redirect('/admin'); 
+    return res.redirect('/admin');
   }
-  
-  res.redirect('/profile'); 
+
+  res.redirect('/profile');
 });
 
 // Register
@@ -138,7 +138,7 @@ app.post("/register", (req, res) => {
   if (password.length < 6) {
     return res.render('auth', { isLogin: false, error: 'Password must be at least 6 characters', user: null, next: '' });
   }
-  
+
   try {
     usersDb.prepare(`
       INSERT INTO users (fullname, email, password, age, gender, address, phone)
@@ -147,7 +147,7 @@ app.post("/register", (req, res) => {
 
     const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
     req.session.user = user;
-    res.redirect('/profile'); 
+    res.redirect('/profile');
   } catch (err) {
     res.render('auth', { isLogin: false, error: 'Email already in use or something went wrong!', user: null, next: '' });
   }
@@ -170,16 +170,16 @@ app.post("/profile/update", upload.single('profilePicture'), (req, res) => {
   if (req.file) {
     profilePicture = req.file.filename;
   }
-  
+
   usersDb.prepare(`
     UPDATE users SET fullname = ?, age = ?, gender = ?, address = ?, phone = ?, profilePicture = ?
     WHERE id = ?`
   ).run(fullname, age, gender, address, phone, profilePicture, req.session?.user?.id);
-  
+
   // Update session
   req.session.user = usersDb.prepare('SELECT * FROM users WHERE id = ?').get(req.session?.user?.id);
-  
-  res.redirect('/profile'); 
+
+  res.redirect('/profile');
 });
 
 // Book
@@ -193,10 +193,10 @@ app.get("/book", (req, res) => {
   // Retrieve all booking made by this user
   const bookingList = db.prepare('SELECT * FROM bookings WHERE email = ?').all(req.session?.user?.email);
 
-  res.render("book", { 
-    user: req.session?.user, 
-    success, 
-    bookingList 
+  res.render("book", {
+    user: req.session?.user,
+    success,
+    bookingList
   });
 });
 
@@ -206,7 +206,7 @@ app.post("/book", (req, res) => {
   try {
     db.prepare(`
       INSERT INTO bookings (name, email, service, date, time, note, status) VALUES (?, ?, ?, ?, ?, ?, ?)`
-    ).run(name, email, service, date, time, note, 'pending'); 
+    ).run(name, email, service, date, time, note, 'pending');
     req.session.success = "Booking successful!";
   } catch (err) {
     req.session.success = "Booking failed. Please try again.";
@@ -215,21 +215,84 @@ app.post("/book", (req, res) => {
 });
 
 // Admin Dashboard
+// Admin Dashboard Routes
 app.get("/admin", (req, res) => {
   if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
-    return res.redirect("/"); 
+    return res.redirect("/");
   }
-  
+
   const users = usersDb.prepare("SELECT * FROM users").all();
+
+  res.render("admin", {
+    user: req.session?.user,
+    users,
+    bookings: [],
+    contacts: [],
+    currentPage: 'users'
+  });
+});
+
+app.get("/admin/bookings", (req, res) => {
+  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
+    return res.redirect("/");
+  }
+
   const bookings = db.prepare("SELECT * FROM bookings").all();
+
+  res.render("admin", {
+    user: req.session?.user,
+    users: [],
+    bookings,
+    contacts: [],
+    currentPage: 'bookings'
+  });
+});
+
+app.get("/admin/messages", (req, res) => {
+  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
+    return res.redirect("/");
+  }
+
   const contacts = db.prepare("SELECT * FROM contacts").all();
 
-  res.render("admin", { 
-    user: req.session?.user, 
-    users, 
-    bookings, 
-    contacts 
+  res.render("admin", {
+    user: req.session?.user,
+    users: [],
+    bookings: [],
+    contacts,
+    currentPage: 'messages'
   });
+});
+
+// Booking Status Update Routes
+app.post("/admin/bookings/approve", (req, res) => {
+  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
+    return res.redirect("/");
+  }
+
+  const { id } = req.body;
+  db.prepare("UPDATE bookings SET status = 'approved' WHERE id = ?").run(id);
+  res.redirect("/admin/bookings");
+});
+
+app.post("/admin/bookings/reject", (req, res) => {
+  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
+    return res.redirect("/");
+  }
+
+  const { id } = req.body;
+  db.prepare("UPDATE bookings SET status = 'rejected' WHERE id = ?").run(id);
+  res.redirect("/admin/bookings");
+});
+
+app.post("/admin/bookings/request-change", (req, res) => {
+  if (!req.session?.user || req.session?.user?.email !== ADMIN_EMAIL) {
+    return res.redirect("/");
+  }
+
+  const { id, newDate } = req.body;
+  db.prepare("UPDATE bookings SET status = 'change-requested', date = ? WHERE id = ?").run(newDate, id);
+  res.redirect("/admin/bookings");
 });
 
 // Logout
