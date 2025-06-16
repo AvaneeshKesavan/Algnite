@@ -11,6 +11,8 @@ const port = 3000;
 const db = new Database("./data.db"); // for messages, booking
 const usersDb = new Database("./users.db"); // for registration and authentication
 
+const ADMIN_EMAIL = 'admin@example.com';
+
 // Middleware
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -102,18 +104,40 @@ app.get("/login", (req, res) => {
 // Handle login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  const next = req.query.next || '/profile';
-
   const user = usersDb.prepare('SELECT * FROM users WHERE email = ?').get(email);
+
   if (!user) {
-    return res.render('auth', { isLogin: true, error: 'Email not registered!', user: null, next });
+    return res.render('auth', { isLogin: true, error: 'Email not registered!', user: null });
   }
   if (user.password !== password) {
-    return res.render('auth', { isLogin: true, error: 'Invalid password!', user: null, next });
+    return res.render('auth', { isLogin: true, error: 'Invalid password!', user: null });
   }
+
   req.session.user = user;
-  res.redirect(next);
+  if (user.email === ADMIN_EMAIL) {
+    return res.redirect("/admin");
+  }
+  res.redirect("/profile");
 });
+
+// Admin Dashboard Route
+app.get("/admin", (req, res) => {
+  if (!req.session?.user || req.session.user.email !== ADMIN_EMAIL) {
+    return res.redirect("/");
+  }
+
+  const users = usersDb.prepare("SELECT * FROM users").all();
+  const bookings = db.prepare("SELECT * FROM bookings").all();
+  const contacts = db.prepare("SELECT * FROM contacts").all();
+
+  res.render("admin", {
+    user: req.session.user, // ✅ add this line to fix the error
+    users,
+    bookings,
+    contacts,
+  });
+});
+
 
 // Register
 app.get("/register", (req, res) => {
