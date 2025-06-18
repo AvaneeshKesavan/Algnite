@@ -126,18 +126,6 @@ body {
   display: none;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .auth-container {
-    padding: 30px 20px;
-  }
-
-  #choice-box button {
-    width: 100%;
-    margin: 10px 0;
-  }
-}
-
 .toggle-password {
   position: absolute;
   right: 15px;
@@ -161,4 +149,53 @@ body {
 
 .hidden {
   display: none;
+}
+
+.password-wrapper {
+  position: relative;
+  margin-bottom: 25px;
+  /* keep consistent spacing */
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding: 14px 45px 14px 14px;
+  /* enough space for the icon */
+  font-size: 15px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 33%;
+  right: 15px;
+  transform: translateY(-50%);
+  font-size: 15px;
+  cursor: pointer;
+  color: #444;
+}
+
+@media (max-width: 480px) {
+
+  html,
+  body {
+    display: block;
+    height: auto;
+    padding: 20px 10px;
+  }
+
+  .auth-container {
+    margin: 40px auto;
+    padding: 40px 20px;
+    border-radius: 10px;
+  }
+
+  #choice-box button {
+    width: 100%;
+    margin: 10px 0;
+  }
 }
