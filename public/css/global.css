@@ -7,7 +7,7 @@ html {
     overflow-x: hidden;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     color: #333;
     scroll-behavior: smooth;
 }
@@ -165,4 +165,14 @@ html {
     .footer-logo h2 {
         font-size: 28px;
     }
+}
+
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Send behind all content */
+  pointer-events: none; /* So it doesn't block clicks */
 }

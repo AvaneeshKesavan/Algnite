@@ -13,6 +13,7 @@
 <body>
     <%- include('partials/loader') %>
         <div class="main">
+            <div id="particles-js"></div>
             <%- include('partials/header', { user: user }) %>
 
                 <div class="profile-container">
@@ -82,16 +83,11 @@
                 <%- include('partials/footer') %>
         </div>
 
-        <script>
-            function showEdit() {
-                document.getElementById('edit-form').style.display = 'block';
-                document.getElementById('profile-info').style.display = 'none';
-            }
-            function cancelEdit() {
-                document.getElementById('edit-form').style.display = 'none';
-                document.getElementById('profile-info').style.display = 'block';
-            }
-        </script>
+        <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        <script src=/js/particle.js></script>
+        <script src=/js/toggle.js></script>
+        <script src=/js/profile.js></script>
+
 </body>
 
 </html>

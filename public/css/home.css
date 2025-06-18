@@ -110,9 +110,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 80px 5%;
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
     flex-wrap: wrap;
     gap: 40px;
+
 }
 
 .about-img {
@@ -164,7 +165,7 @@
 .services {
     position: relative;
     padding: 80px 5%;
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
     text-align: center;
 }
 
@@ -315,3 +316,5 @@
         font-size: 15px;
     }
 }
+
+

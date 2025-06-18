@@ -12,7 +12,9 @@
 
 <body>
   <%- include('partials/loader') %>
+
     <div class="main">
+
       <%- include('partials/header') %>
 
         <section class="hero">
@@ -29,6 +31,7 @@
             </div>
           </div>
         </section>
+        <div id="particles-js"></div>
 
         <section class="about">
           <img class="about-img" src="img/mission.png" alt="mission is to help elders" />
@@ -84,12 +87,11 @@
         <%- include('partials/footer') %>
     </div>
 
-    <script>
-      function toggleMenu() {
-        const nav = document.getElementById("nav-links");
-        nav.classList.toggle("show");
-      }
-    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src=/js/particle.js></script>
+    <script src=/js/toggle.js></script>
+
 </body>
 
 </html>

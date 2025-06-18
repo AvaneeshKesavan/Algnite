@@ -7,10 +7,12 @@
   <title>Login or Register | Elder</title>
   <link rel="icon" type="image/x-icon" href="img/elder.ico" />
   <link rel="stylesheet" href="/css/auth.css" />
+    <link rel="stylesheet" href="/css/global.css" />
 </head>
 
 <body>
   <%- include('partials/loader') %>
+    <div id="particles-js"></div>
     <div class="auth-container">
       <h1>Welcome to Elder</h1>
 
@@ -81,46 +83,11 @@
             </div>
         </div>
 
-        <script>
-          function showForm(formType) {
-            document.getElementById('choice-box').style.display = 'none';
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('register-form').classList.add('hidden');
+        <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        <script src=/js/particle.js></script>
+        <script src=/js/toggle.js></script>
+        <script src=/js/auth.js></script>
 
-            if (formType === 'login') {
-              document.getElementById('login-form').classList.remove('hidden');
-            } else {
-              document.getElementById('register-form').classList.remove('hidden');
-            }
-          }
-
-          function handleRegistration(form) {
-            const dob = document.getElementById('dob').value;
-            if (dob) {
-              const birth = new Date(dob);
-              const age = Math.floor((new Date() - birth) / (1000 * 60 * 60 * 24 * 365.25));
-              document.getElementById('age').value = age;
-            }
-            return true;
-          }
-
-          function togglePassword(icon) {
-            const input = icon.previousElementSibling;
-            input.type = input.type === 'password' ? 'text' : 'password';
-            icon.textContent = input.type === 'password' ? 'O' : '*';
-          }
-
-          // Automatically show form if showForm is passed from server
-          const showFormType = "<%= showForm || '' %>";
-          window.onload = function () {
-            const today = new Date().toISOString().split("T")[0];
-            document.getElementById("dob").max = today;
-
-            if (showFormType) {
-              showForm(showFormType);
-            }
-          };
-        </script>
 </body>
 
 </html>

@@ -13,6 +13,7 @@
 <body>
     <%- include('partials/loader') %>
         <div class="main">
+            <div id="particles-js"></div>
             <%- include('partials/header') %>
 
                 <section class="book-section">
@@ -85,31 +86,11 @@
 
         <div id="successMessage" data-msg="<%= success ? success : '' %>"></div>
 
-        <script>
-            // Prevent past dates and times
-            const dateInput = document.getElementById('dateInput');
-            const timeInput = document.getElementById('timeInput');
-            const today = new Date().toISOString().split('T')[0];
-            dateInput.min = today;
+        <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        <script src=/js/particle.js></script>
+        <script src=/js/toggle.js></script>
+        <script src=/js/book.js></script>
 
-            dateInput.addEventListener('change', () => {
-                const selectedDate = dateInput.value;
-                const now = new Date();
-                const selected = new Date(selectedDate);
-
-                if (selected.toDateString() === now.toDateString()) {
-                    const currentTime = now.toTimeString().slice(0, 5);
-                    timeInput.min = currentTime;
-                } else {
-                    timeInput.min = "00:00";
-                }
-            });
-
-            const successMsg = document.getElementById('successMessage').dataset.msg;
-            if (successMsg) {
-                alert(successMsg);
-            }
-        </script>
 </body>
 
 </html>
