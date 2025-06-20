@@ -11,18 +11,18 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 /* Container */
 .auth-container {
-  background: #ffffff;
+  /* background: #ffffff; */
   padding: 90px 50px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
   width: 100%;
   max-width: 460px;
   text-align: center;
+  align-items: center;
 }
 
 /* Heading */
