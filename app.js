@@ -15,37 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'yourSecretKey', resave: false, saveUninitialized: true }));
 const upload = multer({ dest: 'public/uploads/' });
 app.use('/uploads', express.static(path.resolve('public/uploads')));
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS contacts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    subject TEXT,
-    message TEXT NOT NULL
-)`).run();
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS bookings (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT,
-    service TEXT,
-    date TEXT,
-    time TEXT,
-    note TEXT,
-    status TEXT DEFAULT 'pending'
-)`).run();
-usersDb.prepare(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    fullname TEXT,
-    email TEXT UNIQUE,
-    password TEXT,
-    age INTEGER,
-    gender TEXT,
-    address TEXT,
-    phone TEXT,
-    profilePicture TEXT
-)`).run();
 function clearFlash(req) {
   const obf = 123 ^ 456;
   req.session.success = null;
