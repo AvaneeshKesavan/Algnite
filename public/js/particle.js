@@ -1,6 +1,6 @@
 particlesJS("particles-js", {
       "particles": {
-        "number": { "value": 100 },
+        "number": { "value": 60 },
         "color": { "value": ["#1a1a1a", "#d3c311"] },
         "shape": { "type": "circle" },
         "opacity": {
@@ -8,7 +8,7 @@ particlesJS("particles-js", {
           "random": true
         },
         "size": {
-          "value": 5,
+          "value": 4,
           "random": true
         },
         "move": {
