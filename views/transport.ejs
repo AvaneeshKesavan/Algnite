@@ -1,23 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <title>Transportation</title>
-  <link rel="icon" type="image/x-icon" href="img/elder.ico" />
-  <link rel="stylesheet" href="/css/global.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elder | Transportation Services</title>
+  <link rel="icon" type="image/x-icon" href="img/elder.ico">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/servicesub.css" />
 </head>
-
 <body>
   <%- include('partials/loader') %>
-    <div class="main">
-      <%- include('partials/header') %>
+  <div class="main">
+    <%- include('partials/header') %>
 
-        <h1>Personal Care Services</h1>
-        <p>Here you can learn more about our Personal Care service.</p>
+    <section class="service-hero companionship-hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Transportation Assistance</h1>
+          <p class="lead">Safe, reliable rides for appointments and errands</p>
+        </div>
+      </div>
+    </section>
 
-        <%- include('partials/footer') %>
-    </div>
+    <section class="service-details bg-light-yellow">
+      <div class="container">
+        <div class="service-content">
+          <h2>Why Transportation Matters</h2>
+          <p>Getting out and about is key to staying healthy and connected. We ensure safe, timely transportation for medical visits, shopping, and social events.</p>
+
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <div class="benefit-icon">🚗</div>
+              <h3>Medical Appointments</h3>
+              <p>We help elders arrive safely and on time</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">🛍️</div>
+              <h3>Errands & Shopping</h3>
+              <p>Transport for grocery runs, pharmacies, and more</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">🏡</div>
+              <h3>Door-to-Door</h3>
+              <p>Assistance from home to destination and back</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">🤝</div>
+              <h3>Social Visits</h3>
+              <p>Helping seniors stay socially connected</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-testimonials">
+      <div class="container">
+        <h2>How Transportation Helps</h2>
+        <div class="impact-list">
+          <div class="impact-item"><span class="checkmark">✓</span><p>Reduces missed appointments</p></div>
+          <div class="impact-item"><span class="checkmark">✓</span><p>Supports independence</p></div>
+          <div class="impact-item"><span class="checkmark">✓</span><p>Promotes social wellbeing</p></div>
+          <div class="impact-item"><span class="checkmark">✓</span><p>Offers safe, caring travel</p></div>
+        </div>
+
+        <div class="testimonial">
+          <blockquote>"I can visit the doctor and even meet friends again—thank you!"</blockquote>
+          <p class="author">- Mr. Perera, 81</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-stats bg-light-yellow">
+      <div class="container">
+        <h2>The Impact of Transportation</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-number">75%</div><div class="stat-label">More Access to Care</div></div>
+          <div class="stat-card"><div class="stat-number">2x</div><div class="stat-label">Increase in Social Visits</div></div>
+          <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Ride Safety Guaranteed</div></div>
+        </div>
+        <p class="center-text">Reliable transportation ensures freedom and access to life’s essentials.</p>
+      </div>
+    </section>
+
+    <section class="service-cta">
+      <div class="container">
+        <h2>Need a Ride?</h2>
+        <p>Our caregivers are ready to take you or your loved one wherever you need to go.</p>
+        <div class="cta-buttons">
+          <a href="/contact" class="btn-primary">Contact Us</a>
+          <a href="/services" class="btn-secondary">Other Services</a>
+        </div>
+      </div>
+    </section>
+
+    <%- include('partials/footer') %>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+  </script>
 </body>
-
 </html>
