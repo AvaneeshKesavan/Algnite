@@ -1,23 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <title>Meal Preparation</title>
-  <link rel="icon" type="image/x-icon" href="img/elder.ico" />
-  <link rel="stylesheet" href="/css/global.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elder | Meal Preparation</title>
+  <link rel="icon" type="image/x-icon" href="img/elder.ico">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/servicesub.css" />
 </head>
-
 <body>
   <%- include('partials/loader') %>
-    <div class="main">
-      <%- include('partials/header') %>
+  <div class="main">
+    <%- include('partials/header') %>
 
-        <h1>Personal Care Services</h1>
-        <p>Here you can learn more about our Personal Care service.</p>
+    <section class="service-hero companionship-hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Meal Preparation</h1>
+          <p class="lead">Nutritious, home-style meals prepared with care</p>
+        </div>
+      </div>
+    </section>
 
-        <%- include('partials/footer') %>
-    </div>
+    <section class="service-details bg-light-yellow">
+      <div class="container">
+        <div class="service-content">
+          <h2>Why Meal Preparation Matters</h2>
+          <p>Proper nutrition is essential to senior health. Our caregivers prepare delicious, balanced meals suited to dietary needs and preferences.</p>
+
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <div class="benefit-icon">🥗</div>
+              <h3>Healthy Meals</h3>
+              <p>Fresh and nutritious meals tailored to health needs</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">🛒</div>
+              <h3>Grocery Assistance</h3>
+              <p>Help with shopping and planning nutritious options</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">👨‍🍳</div>
+              <h3>Cooking Help</h3>
+              <p>Preparation and cooking of meals with love and care</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">🧼</div>
+              <h3>Clean Up</h3>
+              <p>Post-meal dishwashing and kitchen maintenance</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-testimonials">
+      <div class="container">
+        <h2>How Meal Preparation Helps</h2>
+        <div class="impact-list">
+          <div class="impact-item"><span class="checkmark">✓</span><p>Ensures seniors eat balanced and timely meals</p></div>
+          <div class="impact-item"><span class="checkmark">✓</span><p>Reduces risk of malnutrition</p></div>
+          <div class="impact-item"><span class="checkmark">✓</span><p>Encourages routine and appetite</p></div>
+          <div class="impact-item"><span class="checkmark">✓</span><p>Respects food preferences and restrictions</p></div>
+        </div>
+
+        <div class="testimonial">
+          <blockquote>"The meals are delicious and I feel healthier every day!"</blockquote>
+          <p class="author">- Soma, 84</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-stats bg-light-yellow">
+      <div class="container">
+        <h2>The Impact of Meal Preparation</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-number">90%</div><div class="stat-label">Improved Nutrition</div></div>
+          <div class="stat-card"><div class="stat-number">70%</div><div class="stat-label">Increased Appetite</div></div>
+          <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Client Satisfaction</div></div>
+        </div>
+        <p class="center-text">A healthy diet starts with support. Our caregivers make meals easy and enjoyable.</p>
+      </div>
+    </section>
+
+    <section class="service-cta">
+      <div class="container">
+        <h2>Let’s Serve Something Healthy Today</h2>
+        <p>Our meal preparation services keep elders nourished and happy every day.</p>
+        <div class="cta-buttons">
+          <a href="/contact" class="btn-primary">Contact Us</a>
+          <a href="/services" class="btn-secondary">Other Services</a>
+        </div>
+      </div>
+    </section>
+
+    <%- include('partials/footer') %>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("nav-links");
+      nav.classList.toggle("show");
+    }
+  </script>
 </body>
-
 </html>
