@@ -1,6 +1,10 @@
+body {
+  padding-top: 120px;
+}
+
 /* Service hero section */
 .service-hero {
-  background-color: #000;
+  background-color: #ffffff;
   color: #fff;
   padding: 5rem 0;
   text-align: center;
