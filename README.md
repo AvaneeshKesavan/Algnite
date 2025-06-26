@@ -1,23 +1,45 @@
-# Algnite - Building the Foundation
+# Algnite
 
 Welcome to the Algnite repository! We're currently in the exciting phase of building the foundational structure for our company's online presence.
 
-## Current Development Focus
+---
 
-Our team is working diligently on the initial key pages of our website:
+# Algnite – Elder
 
-* **Home Page:** I am currently developing the core landing experience for Algnite, aiming to provide a clear introduction to our company and its mission.
-* **Services Page:** Alongside the home page, I'm also building the services page to detail the offerings Algnite will provide.
-* **Contact Page:** Avaneesh is taking the lead on creating the contact page, ensuring visitors have a straightforward way to get in touch with us.
-* **Book Page:** Avaneesh is also developing the book page, which we anticipate will be crucial for [briefly mention the purpose of the book page, e.g., scheduling consultations, accessing resources].
+Algnite – Elder Care is a web-based platform built to support elders with service bookings, profile management, and contact communication. The platform also includes an admin dashboard for managing system data.
 
-## Next Steps
 
-As we progress, we'll be focusing on:
+## Features
 
-* Integrating the individual page components.
-* Establishing a consistent design language across all pages.
-* Adding more content and features to each section.
+- User registration and login
+- Profile update with image upload
+- Booking system for elder services
+- Contact form for user inquiries
+- Admin dashboard for system overview
+
+
+## Technologies Used
+
+- **Frontend:** HTML, CSS, JavaScript, EJS
+- **Backend:** Node.js, Express.js
+- **Database:** SQLite (better-sqlite3)
+- **File Uploads:** Multer
+- **Authentication:** Session-based
+
+
+## Folder Structure
+
+```
+project-root/
+│
+├── public/            # Static assets (CSS, images)
+├── views/             # EJS templates
+├── app.js             # Main application file
+├── users.db           # Database for user information
+├── data.db            # Database for bookings and messages
+├── package.json       # Project dependencies
+└── README.md
+```
 
 ## Stay Tuned!
 
