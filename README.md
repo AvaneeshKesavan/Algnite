@@ -44,3 +44,7 @@ project-root/
 ## Stay Tuned!
 
 This repository will evolve as we build and refine our online presence. We're excited about this initial phase and look forward to sharing our progress.
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
