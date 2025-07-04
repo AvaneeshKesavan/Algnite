@@ -12,7 +12,7 @@ const port = 3000;
 const db = new Database("./data.db");
 const usersDb = new Database("./users.db");
 
-const ADMIN_EMAIL = 'admin@example.com';
+const ADMIN_EMAIL = 'admin@algnite.com';
 
 // Middleware
 app.set('view engine', 'ejs');
